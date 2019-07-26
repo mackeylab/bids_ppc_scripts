@@ -5,6 +5,8 @@ This repo contains scripts for minimal preprocessing pipeline for Mackey Lab dat
 This script should:
 
 - Convert to nifti, put into `CBPD_bids` directory.
+- Fix TOPUP fieldmaps (link to fix here).
+- Assign `IntendedFor` field to TOPUP fieldmap.
 - Run MRIQC on that subject
 - Re-run MRIQC group output to auto-add new subjs as they come in
 - Run freesurfer on that subject’s chosen T1 on the `CBPD_Scanning_Data` Google sheet (longitudinal subjects will be figured out, tbd).
