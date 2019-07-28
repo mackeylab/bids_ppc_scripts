@@ -2,7 +2,7 @@
 
 # obtain scan and session labels
 scans=/data/picsl/mackey_group/BPD/dicoms
-SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts
+SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts/heudiconv
 
 cd $scans
 for sub in `find . -maxdepth 1 -mindepth 1 -type d -name "CBPD*" | sed -e 's|.*/||'`
