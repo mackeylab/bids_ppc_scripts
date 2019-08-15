@@ -11,6 +11,8 @@ We have a b=0 in one direction at the end of our main DTI scan, and a b=0 in our
 
 Basically, we copy out the last B0 volume from the diffusion scan (which is acquired in the -j direction) and the first volume from the TOPUP scan (which is acquired in the j direction), and rename them BIDS-valid names and put them in the fieldmap folder.
 
+See also some posts on Neurostars here: https://neurostars.org/t/not-included-error-bval-and-bvec-fmap-files/4678/9
+
 **NOTE**
 
 I would check TOPUP/diffusion pipeline outputs, because I am uncertain whether the remaining information in the .json file about the other b=1000 volumes acquired will mess it up. Also may need to rewrite *scans.tsv* for each subject.
