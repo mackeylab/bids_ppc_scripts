@@ -1,4 +1,4 @@
-Here, we populate the `IntendedFor` field of the fixed fieldmap `.json`s with the name of the diffusion sequence for which they are intended. Although this will not prevent BIDS validation, according to the BIDS specification, this field is needed in order to use blip-up, blip-down (TOPUP-style) distortion correction. At the moment, since we're not using our fieldmaps for distortion correction of resting-state scans processed with fMRIprep, this is purely for use for posterity. \\
+Here, we populate the `IntendedFor` field of the fixed fieldmap `.jsons` with the name of the diffusion sequence for which they are intended. Although this will not prevent BIDS validation, according to the BIDS specification, this field is needed in order to use blip-up, blip-down (TOPUP-style) distortion correction. At the moment, since we're not using our fieldmaps for distortion correction of resting-state scans processed with fMRIprep, this is purely for use for posterity. \\
 
 See BIDS spec section 8.3.5.4 [here](https://bids.neuroimaging.io/bids_spec.pdf)
 
