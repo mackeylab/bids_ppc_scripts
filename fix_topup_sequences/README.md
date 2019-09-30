@@ -9,7 +9,7 @@ Also, as a note, Siemens records some of our b=0's as b=5, and some of our b=100
 Often see people collect a few b=0 images, but strictly speaking you only need one b=0 in each encoding direction.
 We have a b=0 in one direction at the end of our main DTI scan, and a b=0 in our TOPUP scan in the other direction, then we can use those two B0's to feed into TOPUP.
 
-Basically, we copy out the last B0 volume from the diffusion scan (which is acquired in the -j direction) and the first volume from the TOPUP scan (which is acquired in the j direction), and rename them BIDS-valid names and put them in the fieldmap folder.
+Basically, we copy out the last B0 volume from the diffusion scan (which is acquired in the -j direction) and the first volume from the TOPUP scan (which is acquired in the j direction), and rename them BIDS-valid names and put them in the fieldmap folder. Then, we copy the `.json` file for the diffusion scan over to  `subject/fmap` and rename it appropriately, as well as renaming the `.json` file for the TOPUP scan to the right name.  This is in order to preserve the needed information about `TotalReadoutTime` and `PhaseEncodingDirection`.
 
 See also some posts on Neurostars here: https://neurostars.org/t/not-included-error-bval-and-bvec-fmap-files/4678/9
 
@@ -19,7 +19,7 @@ I would check TOPUP/diffusion pipeline outputs, because I am uncertain whether t
 
 *Ursula 08/19* TOPUP scan qform_yorient and sform_yorient is Posterior-to-Anterior, so we think j direction is PA, and -j direction is AP. I have named the files accordingly.
 
-**Way too much additional info** 
+**Way too much additional info**
 
 Ari says:
 "I'm not sure if there's a use for the b=1000, but the b=0 alone is definitely enough to run TOPUP   
