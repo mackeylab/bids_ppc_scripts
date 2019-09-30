@@ -5,8 +5,8 @@ This repo contains scripts for minimal preprocessing pipeline for Mackey Lab dat
 This script should:
 
 - Convert to nifti, put into `CBPD_bids` directory.
-- Fix TOPUP fieldmaps (see link [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences/README.md)).
-- Assign `IntendedFor` field to TOPUP fieldmaps.
+- Fix TOPUP fieldmaps (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences/README.md)).
+- Assign `IntendedFor` field to TOPUP fieldmaps  (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/assign_fieldmaps/README.md)).
 
 At this point, if a subject has fallen asleep or we need to discard some data, the niftis will be edited to reflect this (x # of TRs removed), and subjects/runs that are bad will be added to the `.bidsignore` file. This includes T1s that we don't want to use.
 
