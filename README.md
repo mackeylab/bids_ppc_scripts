@@ -7,6 +7,10 @@ This script should:
 - Convert to nifti, put into `CBPD_bids` directory.
 - Fix TOPUP fieldmaps (link to fix here).
 - Assign `IntendedFor` field to TOPUP fieldmap.
+
+At this point, if a subject has fallen asleep or we need to discard some data, the niftis will be edited to reflect this (x # of TRs removed), and subjects/runs that are bad will be added to the `.bidsignore` file.
+
+A second script will:
 - Run MRIQC on that subject
 - Re-run MRIQC group output to auto-add new subjs as they come in
 - Run freesurfer on that subject’s chosen T1 on the `CBPD_Scanning_Data` Google sheet (longitudinal subjects will be figured out, tbd).

@@ -1,7 +1,7 @@
 #may need to run several times if the link to the cluster gets broken
 #run from your local computer with the hard drive plugged in, will need to enter password each time
 
-declare -a subs=(CBPD0085_2 CBPD0048_2 CBPD0074_2)
+declare -a subs=(CBPD0085_2 CBPD0048_@)
 
 for i in "${subs[@]}"
 do
