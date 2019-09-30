@@ -6,5 +6,7 @@ See BIDS spec section 8.3.5.4 [here](https://bids.neuroimaging.io/bids_spec.pdf)
 
 > At a quick look, there are many differences between your resting state and DTI_TOPUP readouts (different  slices, different MB factor, etc.). Enough that, if you were just looking for a TOPUP scan to correct your resting state, I'd suggest building up something tailored to your acquisition. Basically, you just want the same readout as your resting state, but spin echo (so it'll also have a longer TE, but that's fine). If you match everything else up, then the TOPUP scan should be applicable.
 > The core thing to consider is whether the readout for the TOPUP scan is matched to the readout for your resting state scan (save for the fact that one is spin echo and one is gradient echo). Assuming they're matched, then I'm pretty sure you can use the TOPUP correction on your resting state data --- it's worth trying in an adult volunteer, at least. If they're not matched, then I'd advocate against it using the TOPUP for the resting state. Of course, you could still create a resting state TOPUP scan and stick it between your two resting state studies if you thought it was worthwhile to have that data.
-"Is fieldmap better or TOPUP?""
+
+"Is fieldmap better or TOPUP?"
+
 > I feel like that's a point of debate, and I guess I'll equivocate and say there are benefits to each approach. If I had a perfectly still subject, lots of time, and was going to actually use all the information in my subsequent analyses, a multi-echo FLASH-based field map would probably be my preference. That said, for real subjects, and the specific things that most folks are doing in their analyses, I suspect TOPUP is "good enough" and may actually give better results in practice just by being more robust.
