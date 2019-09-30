@@ -6,9 +6,9 @@ This script should:
 
 - Convert to nifti, put into `CBPD_bids` directory.
 - Fix TOPUP fieldmaps (link to fix here).
-- Assign `IntendedFor` field to TOPUP fieldmap.
+- Assign `IntendedFor` field to TOPUP fieldmaps.
 
-At this point, if a subject has fallen asleep or we need to discard some data, the niftis will be edited to reflect this (x # of TRs removed), and subjects/runs that are bad will be added to the `.bidsignore` file.
+At this point, if a subject has fallen asleep or we need to discard some data, the niftis will be edited to reflect this (x # of TRs removed), and subjects/runs that are bad will be added to the `.bidsignore` file. This includes T1s that we don't want to use.
 
 A second script will:
 - Run MRIQC on that subject

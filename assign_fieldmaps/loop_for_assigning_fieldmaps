@@ -1,0 +1,13 @@
+#For all already processed subjects
+
+for sub in `find . -maxdepth 1 -mindepth 1 -type d -name "sub-*" | sed -e 's|.*/||'`
+do
+  echo ${sub}
+  for ses in `ls ${sub}` #for each session
+  do
+    echo ${ses}
+    sub=${sub:4} #take off the sub- part
+    echo ${sub}
+    python ${SCRIPTS_DIR}/assign_fieldmaps_to_IntendedFor_field.py ${sub} ${ses}
+    done
+done
