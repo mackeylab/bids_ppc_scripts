@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/sh
 
 #this script goes through the BIDS directory and splits out just the b=0 volume from the TOPUP scan and the last volume from the DWI scan for use in TOPUP
 for sub in `find . -maxdepth 1 -mindepth 1 -type d -name "sub-*" | sed -e 's|.*/||'`

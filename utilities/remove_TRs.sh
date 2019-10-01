@@ -13,9 +13,13 @@ sub=${1}
 ses=${2}
 scan=${3}
 num=${4}
+num=30
+scan=sub-CBPD0173_ses-01_task-rest_run-01_bold.nii.gz
+#AFNI version is the alternative
+#3dcalc -a ${scan}[0-"$num"] -expr 'a' -prefix new.nii.gz
 
-3dCalc xxxx from before
+fslroi ${scan} new.nii.gz 0 ${num} #go with FSL
 
-dataleft=`mriinfo TRs `
+dataleft=`mri_info --nframes new.nii.gz`
 
 echo `you have ${dataleft} TRs x 2 s left for ${sub}`
