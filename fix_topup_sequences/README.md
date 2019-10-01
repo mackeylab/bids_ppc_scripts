@@ -15,7 +15,7 @@ See also some posts on Neurostars here: https://neurostars.org/t/not-included-er
 
 **NOTE**: I would check TOPUP/diffusion pipeline outputs, because I am uncertain whether the remaining information in the .json file about the other b=1000 volumes acquired will mess it up. Also may need to rewrite *scans.tsv* for each subject.
 
-*Ursula 08/19* TOPUP scan qform_yorient and sform_yorient is Posterior-to-Anterior, so we think j direction is PA, and -j direction is AP. I have named the files accordingly.
+*Ursula 08/19*: TOPUP scan qform_yorient and sform_yorient is Posterior-to-Anterior, so we think j direction is PA, and -j direction is AP. I have named the files accordingly.
 
 **Way too much additional info**
 
