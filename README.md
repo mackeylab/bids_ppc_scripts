@@ -1,6 +1,6 @@
 # BIDS Preprocessing Pipeline
 
-This repo contains scripts for minimal preprocessing pipeline for Mackey Lab data in BIDS. These scripts operate in two chunks.
+This repo contains scripts for minimal containerized preprocessing pipeline for Mackey Lab data in BIDS. These scripts operate in two chunks.
 
 The first chunk is run by the `new_subj_first` script. This does the below:
 
