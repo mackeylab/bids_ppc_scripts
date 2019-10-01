@@ -12,10 +12,10 @@ Next, if a subject has fallen asleep or we need to discard some data, the BOLD n
 
 The second chunk is run by `new_subj_second` script. This does the below:
 - Run MRIQC on that subject
-- Re-run MRIQC group output to auto-add new subjs as they come in
-- Run Freesurfer on that subject’s chosen T1 on the `CBPD_Scanning_Data` Google sheet (longitudinal subjects will be figured out for this, tbd).
-- When freesurfer is done, start fMRIprep which will then run with precomputed Freesurfer inputs.
+- Re-run MRIQC group output to auto-add new subjects as they come in.
+- Run Freesurfer on that subject’s chosen T1, documented on the `CBPD_Scanning_Data` Google sheet (longitudinal subjects will be figured out for this, tbd).
+- When Freesurfer is done, start fMRIprep, which will then run with precomputed Freesurfer inputs.
 
-Then, someone should put their eyes on fmriprep `.html` files for each subject run through this, and copy MRIQC outputs including # of resting-state vols into CBPD Scanning Data file.
+Then, someone should put their eyes on fMRIprep `.html` files for each subject run through this, and copy MRIQC outputs including # of resting-state vols into the `CBPD Scanning Data` sheet.
 
 There will also be a script to pull only a subset of the columns of MRIQC IQMs and aggregate them into a file to update the `CBPD_Scanning_Data` Google sheet with.
