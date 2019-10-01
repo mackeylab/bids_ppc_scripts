@@ -18,4 +18,4 @@ The second chunk is run by `new_subj_second` script. This does the below:
 
 Then, someone should put their eyes on fMRIprep `.html` files for each subject run through this, and copy MRIQC outputs including # of resting-state vols into the `CBPD Scanning Data` sheet.
 
-There will also be a script to pull only a subset of the columns of MRIQC IQMs and aggregate them into a file to update the `CBPD_Scanning_Data` Google sheet with.
+There will also be a script to pull only a subset of the columns of MRIQC IQMs and aggregate them into a file to update the `CBPD_Scanning_Data` Google sheet.
