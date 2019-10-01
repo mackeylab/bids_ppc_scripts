@@ -33,3 +33,5 @@ echo `Assigning Intended For field for ${sub}`
 python assign_fieldmaps_to_IntendedFor_field.py ${sub} ${ses}
 
 echo `finished assigning Intended For field for ${sub}`
+
+echo `Now check whether you need to remove some TRs for sleeping subjects, or whether we should add some scans to the .bidsignore file.`
