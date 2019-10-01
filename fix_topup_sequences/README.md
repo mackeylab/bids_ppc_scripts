@@ -20,15 +20,17 @@ See also some posts on Neurostars here: https://neurostars.org/t/not-included-er
 **Way too much additional info**
 
 Ari says:
-"I'm not sure if there's a use for the b=1000, but the b=0 alone is definitely enough to run TOPUP   
-Often see people collect a few b=0 images, but strictly speaking you only need one b=0 in each encoding direction. So if we have a b=0 in one direction in our main DTI scan, and a b=0 in our TOPUP scan in the other direction, then you pull out both of those volumes and feed them into TOPUP. It really doesn't matter a huge amount as long as people haven't moved around much between the two. I sorta remember from talking to Mark that there isn't any easy way with the siemens scanner to get both directions in the same sequence, but could be wrong on that"   
-Anyways, if you want to play around with this, TOPUP should generate an 'unwarped' image, and if it's not messing anything up, that unwarped image should look way more like the T1/T2 structurals than either of the b=5s. Which is really where this comes into play anyways: running TOPUP to fix this distortion should mean you get better within-subject alignment between diffusion and other modalities. Those distortions are going to be fairly specific to the diffusion scan, so if you're trying to generate an atlas based on the subject's structural scan it's going to be a cleaner fit after running topup/eddy"
+> I'm not sure if there's a use for the b=1000, but the b=0 alone is definitely enough to run TOPUP. Often see people collect a few b=0 images, but strictly speaking you only need one b=0 in each encoding direction. So if we have a b=0 in one direction in our main DTI scan, and a b=0 in our TOPUP scan in the other direction, then you pull out both of those volumes and feed them into TOPUP. It really doesn't matter a huge amount as long as people haven't moved around much between the two. I sorta remember from talking to Mark that there isn't any easy way with the siemens scanner to get both directions in the same sequence, but could be wrong on that"   
+>Anyways, if you want to play around with this, TOPUP should generate an 'unwarped' image, and if it's not messing anything up, that unwarped image should look way more like the T1/T2 structurals than either of the b=5s. Which is really where this comes into play anyways: running TOPUP to fix this distortion should mean you get better within-subject alignment between diffusion and other modalities. Those distortions are going to be fairly specific to the diffusion scan, so if you're trying to generate an atlas based on the subject's structural scan it's going to be a cleaner fit after running topup/eddy"
 
 Matt Cieslak says:
-The topup refs here have bvals and bvecs because of a glitch in the siemens diffusion sequence".   
-Specifically, "It’s because the siemens diffusion sequence requires at least one non-b0 image to run. There is no option for acquiring just a single b=0 volume at the moment. If you write your own sampling schemes, which is how we’ve been doing it, the scanner automatically adds a b=0 to the beginning of the sequence. So if you request a b=0 and one b>0 (required) you end up with 2 b=0 scans and a b>0 scan."   
+>The topup refs here have bvals and bvecs because of a glitch in the siemens diffusion sequence.   
+>Specifically, "It’s because the siemens diffusion sequence requires at least one non-b0 image to run. There is no option for acquiring just a single b=0 volume at the moment. If you write your own sampling schemes, which is how we’ve been doing it, the scanner automatically adds a b=0 to the beginning of the sequence. So if you request a b=0 and one b>0 (required) you end up with 2 b=0 scans and a b>0 scan.
+
 How to deal with it?   
-I usually do `3dcalc -a 'fmap.nii.gz[0]' -expr '1*a' -prefix singlevolfmap.nii.gz` and delete the bvals and bvecs
-or you can do `3dcalc -a 'fmap.nii.gz[0..N]' -expr '1*a' -prefix singlevolfmap.nii.gz` where N is the number of b=0 scans   
+
+>I usually do `3dcalc -a 'fmap.nii.gz[0]' -expr '1*a' -prefix singlevolfmap.nii.gz` and delete the bvals and bvecs or you can do `3dcalc -a 'fmap.nii.gz[0..N]' -expr '1*a' -prefix singlevolfmap.nii.gz` where N is the number of b=0 scans   
+
 Are the b=1000’s useful at all?   
-Topup can use them for “extra good” fieldmap estimation, it motion corrects all the scans with the same PE direction, then estimates warps between those means, if your scan has lots of slice dropout then this can be useful
+
+>Topup can use them for “extra good” fieldmap estimation, it motion corrects all the scans with the same PE direction, then estimates warps between those means, if your scan has lots of slice dropout then this can be useful.
