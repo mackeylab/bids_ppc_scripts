@@ -1,10 +1,10 @@
 # BIDS Preprocessing Pipeline
 
-This repo contains scripts for minimal containerized preprocessing pipeline for Mackey Lab data in BIDS. These scripts operate in two chunks.
+This repo contains scripts for minimal **containerized** preprocessing for Mackey Lab child data in BIDS. These scripts operate in two chunks.
 
 The first chunk is run by the `new_subj_first` script. This does the below:
 
-- Convert to nifti, put into `CBPD_bids` directory (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/heudiconv)).
+- Convert to nifti, put into `CBPD_bids` directory.
 - Fix TOPUP fieldmaps (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences/README.md)).
 - Assign `IntendedFor` field to TOPUP fieldmaps  (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/assign_fieldmaps/README.md)).
 

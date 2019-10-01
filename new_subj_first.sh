@@ -6,7 +6,8 @@ if [ $# -eq 0 ]; then
 echo "USAGE: new_subj_first.sh <sub_id> <ses>
 
 Example: new_subj_first.sh CBPDxxx xxx
-This runs heudiconv, fixes the blip-up blip-down sequences, and assigns the IntendedFor field to the fieldmaps "
+This runs heudiconv, fixes the blip-up blip-down sequences, and assigns the IntendedFor field to the fieldmaps.
+After this is run, check for any runs that need to be .bidsignored, and any sleep during resting-state."
 exit
 fi
 
