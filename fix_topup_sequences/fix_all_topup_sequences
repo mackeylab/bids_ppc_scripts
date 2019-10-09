@@ -1,12 +1,21 @@
 #!/bin/sh
+set -euo pipefail #set this to kill the script if a variable is not found.
+
+if [ $# -eq 0 ]; then
+echo "USAGE: fix_all_topup_sequence.sh <bids-directory>
+"
+exit
+fi
+
+directory=$1
 
 #this script goes through the BIDS directory and splits out just the b=0 volume from the TOPUP scan and the last volume from the DWI scan for use in TOPUP
-for sub in `find . -maxdepth 1 -mindepth 1 -type d -name "sub-*" | sed -e 's|.*/||'`
+for sub in `find ${directory} -maxdepth 1 -mindepth 1 -type d -name "sub-*" | sed -e 's|.*/||'`
 do
-  echo ${sub}
-  for ses in `ls ${sub}` #for each session
+  echo $sub
+  for ses in $sub/* #for each session
   do
-    echo ${ses}
+    echo $ses
 cd ${sub}/${ses}
 fieldmap_orig=fmap/${sub}_${ses}_run-01_epi.nii.gz #the original fieldmap
 echo ${fieldmap_orig}
@@ -25,4 +34,5 @@ rm ${sub}*.bvec
 rm ${fieldmap_orig}
 cd ../../
 
+done
 done
