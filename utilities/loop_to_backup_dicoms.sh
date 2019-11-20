@@ -1,7 +1,11 @@
 #may need to run several times if the link to the cluster gets broken
 #run from your local computer with the hard drive plugged in, will need to enter password each time
+set -euo pipefail
 
-declare -a subs=(CBPD0039_2 CBPD0097_2 CBPD0048_2)
+declare -a subs=(CBPD0125_2
+CBPD0126_2
+CBPD0048_3
+CBPD0074_3)
 
 for i in "${subs[@]}"
 do

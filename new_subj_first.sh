@@ -1,6 +1,7 @@
 #!/bin/sh
 #$ -cwd
 #$ -V
+set -euo pipefail
 
 if [ $# -eq 0 ]; then
 echo "USAGE: new_subj_first.sh <sub_id> <ses>

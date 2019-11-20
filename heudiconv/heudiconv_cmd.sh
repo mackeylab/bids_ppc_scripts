@@ -1,4 +1,4 @@
-
+set -euo pipefail
 #$ -j y
 #$ -l h_vmem=10.1G,s_vmem=10.0G
 #$ -o /data/picsl/mackey_group/CBPD/output/qsub_output

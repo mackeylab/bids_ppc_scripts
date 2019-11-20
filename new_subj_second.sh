@@ -1,6 +1,7 @@
 #!/bin/sh
 #$ -cwd
 #$ -V
+set -euo pipefail
 
 if [ $# -eq 0 ]; then
 echo "USAGE: new_subj_second.sh <sub_id> <ses> <T1 for freesurfer> <T2 for freesurfer>

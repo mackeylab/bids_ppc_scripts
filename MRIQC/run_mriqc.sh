@@ -1,6 +1,7 @@
 #!/bin/sh
 #$ -cwd
 #$ -V
+set -euo pipefail
 
 MACKEY_HOME=/data/picsl/mackey_group/
 #BIDS_folder=/data/picsl/mackey_group/BPD/niftis

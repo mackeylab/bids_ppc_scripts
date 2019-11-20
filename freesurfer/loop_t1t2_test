@@ -1,0 +1,15 @@
+declare -a arr=(CBPD0155
+CBPD0156
+CBPD0157
+CBPD0158
+CBPD0159
+CBPD0160)
+
+SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts/freesurfer
+
+for sub in "${arr[@]}"
+do
+echo $sub
+qsub ${SCRIPTS_DIR}/recon_all_init_nifti.sh ${sub} 1
+qsub ${SCRIPTS_DIR}/recon_all_init_wT2.sh ${sub} 1 1
+done
