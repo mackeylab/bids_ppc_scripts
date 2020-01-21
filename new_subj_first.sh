@@ -4,11 +4,13 @@
 set -euo pipefail
 
 if [ $# -eq 0 ]; then
-echo "USAGE: new_subj_first.sh <sub_id>
+echo "USAGE: new_subj_first.sh <sub_id> <BIDS_output_dir>
 
-Example: new_subj_first.sh CBPDxxx[_x]
+Example: new_subj_first.sh CBPDxxx[_x] /data/picsl/mackey_group/BIDS/
 This runs heudiconv, fixes the blip-up blip-down/TOPUP sequences, and assigns the IntendedFor field to the fieldmaps.
-After this is run, check for any runs that need to be .bidsignored, and any sleep during resting-state."
+After this is run, check for any runs that need to be .bidsignored, and any sleep during resting-state.
+
+<BIDS_output_dir> must have trailing / "
 exit
 fi
 
@@ -17,11 +19,15 @@ ses=0${1:9} #change timepoint to 01,02,03
 if [[ $ses==0 ]]; then #no suffix is timepoint 01
   ses=01
 fi
-######
-### Convert using Heudiconv ###
-######
+BIDS_dir=${2}
+
+echo ~~~~~~~~~~~~~
+echo ~~~~ Convert using Heudiconv ~~~~~~
+echo ~~~~~~~~~~~~~
 
 echo Doing Heudiconv conversion for ${sub} session ${ses}
+echo BIDS directory is /data/picsl/mackey_group/CBPD/CBPD_bids, see heudiconv_cmd.sh to change
+
 SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts
 
 sleep .5
@@ -38,25 +44,25 @@ fi
 
 echo Finished heudiconv conversion for ${sub} session ${ses}
 
-######
-### Fix TOPUP scans ###
-######
+echo ~~~~~~~~~~~~~
+echo ~~~~ Fix TOPUP scans ~~~~~~
+echo ~~~~~~~~~~~~~
 
 echo Fixing TOPUP scan for ${sub} session ${ses}
 
 sleep .5
-bash ${SCRIPTS_DIR}/fix_topup_sequences/fix_one_sub_topup_sequence.sh ${sub} ${ses}
+bash ${SCRIPTS_DIR}/fix_topup_sequences/fix_one_sub_topup_sequence.sh ${sub} ${ses} ${BIDS_dir}
 
 echo Finished fixing TOPUP scan for ${sub} session ${ses}
 
-######
-### Assign Intended For field to fieldmaps ###
-######
+echo ~~~~~~~~~~~~~
+echo ~~~~ Assign IntendedFor field to fieldmap scans ~~~~~~
+echo ~~~~~~~~~~~~~
 
-echo Assigning Intended For field for ${sub}
+echo Assigning Intended For field for ${sub} session ${ses}
 
-#python assign_fieldmaps_to_IntendedFor_field.py ${sub} ${ses}
+python ${SCRIPTS_DIR}/assign_fieldmaps/assign_fieldmaps_to_IntendedFor_field.py ${sub} ${ses} ${BIDS_dir}
 
-echo Finished assigning Intended For field for ${sub}
+echo Finished assigning Intended For field for ${sub} session ${ses}
 
 echo Now check whether you need to remove some TRs for sleeping, or whether we should add some scans to the .bidsignore file.

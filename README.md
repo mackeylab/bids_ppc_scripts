@@ -24,6 +24,16 @@ Then, someone should put their eyes on fMRIprep `.html` files for each subject r
 
 There will also be a script to pull only a subset of the columns of MRIQC IQMs and aggregate them into a file to update the `CBPD_Scanning_Data` Google sheet with.
 
+_Requirements_
+
+Most scripts pull Singularity containers from their location in `/data/picsl/mackey_group/tools`, but you do need a few utilities accessible from your path. I recommend installing them all into a Conda environment. 
+
+- Current version of dcm2niix :
+	`conda install -c conda-forge dcm2niix` 
+- Python packages : `sys,json,bisect,glob,os,pybids,dateutil`
+	```conda install -c aramislab pybids
+	  conda install sys,json,bisect,glob,os,dateutil```
+
 __Utilities__
 - Copying over dicoms from rico, detecting which have changed in the last four days
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
