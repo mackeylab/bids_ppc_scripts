@@ -32,6 +32,12 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 
 - Current version of dcm2niix :
 	`conda install -c conda-forge dcm2niix` 
+- Singularity accessible from your path :
+	```
+	#add to your ~/.bash_profile
+	SINGULARITY_PATH=/share/apps/singularity/2.5.1/bin
+	PATH=${SINGULARITY_PATH}:${PATH}
+	```
 - Python packages : `sys,json,bisect,glob,os,pybids,dateutil`
 	```conda install -c aramislab pybids
 	  conda install sys,json,bisect,glob,os,dateutil```
