@@ -1,7 +1,8 @@
 # BIDS Preprocessing Pipeline
 
-This repo contains scripts for minimal containerized preprocessing for Mackey Lab child data in BIDS. These scripts operate in two chunks.
+This repo contains scripts for minimal containerized preprocessing for Mackey Lab child data in BIDS. These scripts using *containers*, which you can learn more about [here](https://github.com/mackeylab/home/wiki/Singularity-containers). They operate in two chunks.
 
+## First script
 The first chunk is run by the `new_subj_first` script. This does the below:
 
 - Convert to nifti format with [Heudiconv](https://heudiconv.readthedocs.io/en/latest/), put into `CBPD_bids` directory (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/heudiconv)).
@@ -14,6 +15,7 @@ Next, if a subject has fallen asleep or we need to discard some data, the BOLD n
 
 Check the MRI protocol notes ([here](https://docs.google.com/spreadsheets/d/15D3aYw1m127c-BHkAAxGTNqqpewZirn1OTzHZomUpUU/edit#gid=0)) or CBPD Scanning Data ([here](https://docs.google.com/spreadsheets/d/1tEMxyA7doTrpNZVW6m5qZJJG_muINBZU7ryn1AGwQtI/edit#gid=0)) for whether a participant has fallen asleep, and at what time. If we didn't note when they fell asleep, put the whole run into `.bidsignore`. A script for discarding extra TRs is [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences/README.md).
 
+## Second script
 The second chunk is run by `new_subj_second` script. This does the below:
 - Run [MRIQC](https://mriqc.readthedocs.io/en/stable/) on that subject.
 - Re-run MRIQC group output to auto-add new subjects as they come in.
