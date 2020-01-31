@@ -43,8 +43,7 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 	```
 	  conda install sys,json,bisect,glob,os,dateutil
 	  pip install pybids
-	  ```
-
+	```
 __Utilities__
 - Copying over dicoms from rico, detecting which have changed in the last four days
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
