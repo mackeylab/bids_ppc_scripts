@@ -29,9 +29,10 @@ mv fmap/${sub}_${ses}_run-01_epi.json fmap/${sub}_${ses}_dir-PA_epi.json #rename
 dwi=dwi/${sub}_${ses}_run-01_dwi.nii.gz
 3dcalc -overwrite -a ${dwi}[$] -expr '1*a' -prefix ${topup_jneg} #take only the last vol of DWI
 cp dwi/${sub}_${ses}_run-01_dwi.json fmap/${sub}_${ses}_dir-AP_epi.json #copy the dwi json
+chmod 755 fmap/* #change the permissions so you can write into the .json files later
 
 rm fmap/${sub}*.bval
 rm fmap/${sub}*.bvec
-rm ${fieldmap_orig}
+rm ${fieldmap_orig} -f
 cd ../../
 
