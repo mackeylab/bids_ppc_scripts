@@ -4,7 +4,7 @@ set -euo pipefail #set this to kill the script if a variable is not found.
 if [ $# -eq 0 ]; then
 echo "USAGE: fix_one_sub_topup_sequence.sh <sub> <ses> <BIDS_dir>
 
-This goes through the converted niftis in CBPD_bids for a given subject <sub>
+This goes through the converted niftis in <BIDS_dir> for a given subject <sub>
 and session <ses>, and splits out just the b=0 volume from the TOPUP fieldmap
 scan and the last volume from the DWI scan for use in eventual distortion correction with TOPUP.
 

@@ -19,7 +19,7 @@ ses=0${1:9} #change timepoint to 01,02,03
 if [[ $ses==0 ]]; then #no suffix is timepoint 01
   ses=01
 fi
-BIDS_dir=$(readlink -f $2) #resolve relative paths to absolute
+BIDS_dir=$(readlink -f $2) #resolve relative paths, make them absolute
 
 echo ~~~~~~~~~~~~~
 echo ~~~~ Convert using Heudiconv ~~~~~~

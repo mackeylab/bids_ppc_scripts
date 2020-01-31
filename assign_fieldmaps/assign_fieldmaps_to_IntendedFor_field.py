@@ -2,25 +2,23 @@
 #python assign_fieldmaps_to_IntendedFor_field.py ${sub} ${session} ${BIDS_dir}
 #neither subject nor session needs the BIDS prefix (i.e. "CBPD" not "sub-CBPD")
 
-
-import sys
-import json
-import bisect
-from glob import glob
-from os.path import join, splitext
-from bids.layout import BIDSLayout
-from dateutil.parser import parse
-# try:
-# except ImportError:
-#     sys.exit("""You need one of the required packages!
-#                 Install sys,json,bisect,glob,os,pybids, and dateutil.
-#                 Install it from Conda or run pip install <package-name>.""")
+try:
+    import sys
+    import json
+    import bisect
+    from glob import glob
+    from os.path import join, splitext
+    from bids.layout import BIDSLayout
+    from dateutil.parser import parse
+except ImportError:
+    sys.exit("""You need one of the required packages!
+                Install sys,json,bisect,glob,os,pybids, and dateutil.
+                Install it from Conda or run pip install <package-name>.""")
 
 subj=sys.argv[1]
 sess = sys.argv[2]
 # subj_dir *must* have trailing /
 subj_dir = sys.argv[3]
-subj_dir='/data/picsl/mackey_group/CBPD/CBPD_bids/'
 data_suffix = '.nii.gz'
 
 layout = BIDSLayout(subj_dir)
