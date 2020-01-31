@@ -39,8 +39,10 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 	PATH=${SINGULARITY_PATH}:${PATH}
 	```
 - Python packages : `sys,json,bisect,glob,os,pybids,dateutil`
-	```conda install -c aramislab pybids
-	  conda install sys,json,bisect,glob,os,dateutil```
+	```
+	  conda install sys,json,bisect,glob,os,dateutil
+	  pip install pybids
+	  ```
 
 __Utilities__
 - Copying over dicoms from rico, detecting which have changed in the last four days
