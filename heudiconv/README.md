@@ -4,4 +4,6 @@ Here, we convert dicoms from the scanner to niftis in BIDS format using [heudico
 
 **Note**: If you get an error about `conflicting StudyInstanceUID`, see [here](https://github.com/mackeylab/bids_ppc_scripts/utilities).
 
-**Troubleshooting:** See heudiconv [tutorials](https://heudiconv.readthedocs.io/en/latest/tutorials.html).
+**Troubleshooting:** If you get an error about `TraitSpec` not matching, try deleting the subject folder in the hidden `/data/picsl/mackey_group/CBPD/CBPD_bids/.heudiconv` folder and reconverting.
+
+See heudiconv [tutorials](https://heudiconv.readthedocs.io/en/latest/tutorials.html).
