@@ -19,7 +19,7 @@ ses=0${1:9} #change timepoint to 01,02,03
 if [[ $ses==0 ]]; then #no suffix is timepoint 01
   ses=01
 fi
-BIDS_dir=${2}
+BIDS_dir=$(readlink -f $2) #resolve relative paths to absolute
 
 echo ~~~~~~~~~~~~~
 echo ~~~~ Convert using Heudiconv ~~~~~~
@@ -33,13 +33,13 @@ SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts
 sleep .5
 if [[ $ses == 02 ]]; then #the ID is longer than x digits and ends in _2, it's a longitudinal subject, then convert
    echo 'its longitudinal T2'
-   bash ${SCRIPTS_DIR}/heudiconv/heudiconv_cmd_longitud_T2.sh ${sub}
+   bash ${SCRIPTS_DIR}/heudiconv/heudiconv_cmd_longitud_T2.sh ${sub} ${BIDS_dir}
  elif [[ $ses == 03 ]]; then
    echo 'its longitudinal T3'
-   bash ${SCRIPTS_DIR}/heudiconv/heudiconv_cmd_longitud_T3.sh ${sub}
+   bash ${SCRIPTS_DIR}/heudiconv/heudiconv_cmd_longitud_T3.sh ${sub} ${BIDS_dir}
  else
    echo 'its not longitudinal'
-   bash ${SCRIPTS_DIR}/heudiconv/heudiconv_cmd.sh ${sub}
+   bash ${SCRIPTS_DIR}/heudiconv/heudiconv_cmd.sh ${sub} ${BIDS_dir}
 fi
 
 echo Finished heudiconv conversion for ${sub} session ${ses}

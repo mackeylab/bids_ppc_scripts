@@ -5,6 +5,7 @@ set -euo pipefail
 #$ -q himem.q,all.q,basic.q,gpu.q
 
 subID=${1}
+dir=$(cut -d'/' -f 3- <<< ${2}) #take off the /data/ prefix
+echo $dir
 
-
-singularity run -B /data/picsl/mackey_group:/mnt --cleanenv /data/picsl/mackey_group/tools/singularity/heudiconv0.5.4.simg -d /mnt/BPD/dicoms/{subject}/*.dcm -o /mnt/CBPD/CBPD_bids -f /mnt/CBPD/bids_ppc_scripts/heudiconv/heuristic.py -s ${subID} --ses 01 -c dcm2niix -b --minmeta;
+singularity run -B /data:/mnt --cleanenv /data/picsl/mackey_group/tools/singularity/heudiconv0.5.4.simg -d /mnt/picsl/mackey_group/BPD/dicoms/{subject}/*.dcm -o /mnt/${dir} -f /mnt/picsl/mackey_group/CBPD/bids_ppc_scripts/heudiconv/heuristic.py -s ${subID} --ses 01 -c dcm2niix -b --minmeta;
