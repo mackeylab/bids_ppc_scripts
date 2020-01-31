@@ -31,7 +31,7 @@ __Requirements__
 Most scripts pull Singularity containers from their location in `/data/picsl/mackey_group/tools`, but you do need a few utilities accessible from your path. I recommend installing them all into a Conda environment. 
 
 - A *current* version of dcm2niix :
-	`conda install -c conda-forge dcm2niix` 
+	`conda install -c conda-forge dcm2niix`   
 	Do not use the one in `/data/picsl/mackey_group/BPD/envs/bpd_py`! You may need to remove that from your path.
 - Singularity accessible from your path :
 	```
