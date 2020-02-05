@@ -9,8 +9,7 @@ echo "USAGE: new_subj_first.sh <sub_id> <BIDS_output_dir>
 Example: new_subj_first.sh CBPDxxx[_x] /data/picsl/mackey_group/BIDS/
 This runs heudiconv, fixes the blip-up blip-down/TOPUP sequences, and assigns the IntendedFor field to the fieldmaps.
 After this is run, check for any runs that need to be .bidsignored, and any sleep during resting-state.
-
-<BIDS_output_dir> must have trailing / "
+"
 exit
 fi
 
@@ -20,7 +19,7 @@ echo $ses
 if [[ ${ses} == 0 ]]; then #no suffix is timepoint 01
   ses=01
 fi
-BIDS_dir=$(readlink -f $2) #resolve relative paths, make them absolute
+BIDS_dir=$(readlink -f $2)/ #resolve relative paths, make them absolute
 
 echo ~~~~~~~~~~~~~
 echo ~~~~ Convert using Heudiconv ~~~~~~
@@ -60,6 +59,7 @@ echo ~~~~ Assign IntendedFor field to fieldmap scans ~~~~~~
 echo ~~~~~~~~~~~~~
 
 echo Assigning Intended For field for ${sub} session ${ses}
+echo python ${SCRIPTS_DIR}/assign_fieldmaps/assign_fieldmaps_to_IntendedFor_field.py ${sub} ${ses} ${BIDS_dir}
 
 python ${SCRIPTS_DIR}/assign_fieldmaps/assign_fieldmaps_to_IntendedFor_field.py ${sub} ${ses} ${BIDS_dir}
 
