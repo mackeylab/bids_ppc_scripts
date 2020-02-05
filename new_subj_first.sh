@@ -16,7 +16,8 @@ fi
 
 sub=${1:0:8} #CBPDxxxx
 ses=0${1:9} #change timepoint to 01,02,03
-if [[ $ses==0 ]]; then #no suffix is timepoint 01
+echo $ses
+if [[ ${ses} == 0 ]]; then #no suffix is timepoint 01
   ses=01
 fi
 BIDS_dir=$(readlink -f $2) #resolve relative paths, make them absolute
@@ -26,8 +27,7 @@ echo ~~~~ Convert using Heudiconv ~~~~~~
 echo ~~~~~~~~~~~~~
 
 echo Doing Heudiconv conversion for ${sub} session ${ses}
-echo BIDS directory is /data/picsl/mackey_group/CBPD/CBPD_bids, see heudiconv_cmd.sh to change
-
+echo BIDS directory is ${BIDS_dir}
 SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts
 
 sleep .5
