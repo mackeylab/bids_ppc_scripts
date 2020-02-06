@@ -18,7 +18,8 @@ except ImportError:
 subj=sys.argv[1]
 sess = sys.argv[2]
 # subj_dir *must* have trailing /
-subj_dir = sys.argv[3]
+subj_dir = sys.argv[3]+'/'
+print(subj_dir)
 data_suffix = '.nii.gz'
 
 layout = BIDSLayout(subj_dir)

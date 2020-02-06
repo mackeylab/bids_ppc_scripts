@@ -15,11 +15,10 @@ fi
 
 sub=${1:0:8} #CBPDxxxx
 ses=0${1:9} #change timepoint to 01,02,03
-echo $ses
 if [[ ${ses} == 0 ]]; then #no suffix is timepoint 01
   ses=01
 fi
-BIDS_dir=$(readlink -f $2)/ #resolve relative paths, make them absolute
+BIDS_dir=$(readlink -f $2) #resolve relative path, make it absolute
 
 echo ~~~~~~~~~~~~~
 echo ~~~~ Convert using Heudiconv ~~~~~~
