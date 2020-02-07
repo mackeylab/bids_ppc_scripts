@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts/assign_fieldmaps
-BIDS_DIR=/data/picsl/mackey_group/CBPD/test_bids/ #need a trailing /
+BIDS_DIR=/data/picsl/mackey_group/CBPD/CBPD_bids/ #need a trailing /
 
 cd $BIDS_DIR
 for subject in `find . -maxdepth 1 -mindepth 1 -type d -name "sub-*" | sed -e 's|.*/||'`
