@@ -5,7 +5,7 @@ set -euo pipefail
 #$ -q himem.q,all.q,basic.q,gpu.q
 
 SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts/assign_fieldmaps
-BIDS_DIR=/data/picsl/mackey_group/CBPD/CBPD_bids/ #need a trailing /
+BIDS_DIR=/data/picsl/mackey_group/CBPD/CBPD_bids_2/ #need a trailing /
 
 cd $BIDS_DIR
 for subject in `find . -maxdepth 1 -mindepth 1 -type d -name "sub-*" | sed -e 's|.*/||'`

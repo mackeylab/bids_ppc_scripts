@@ -4,15 +4,15 @@ set -euo pipefail
 # obtain scan and session labels
 scans=/data/picsl/mackey_group/BPD/dicoms
 SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts/heudiconv
-BIDS_dir=/data/picsl/mackey_group/CBPD/CBPD_bids
+BIDS_dir=/data/picsl/mackey_group/CBPD/CBPD_bids_2
 
-declare -a subs=(CBPD0195 CBPD0002_2 CBPD0037_2 CBPD0039_2 CBPD0085_2 CBPD0048_3 CBPD0074_3 CBPD0188)
+#declare -a subs=(CBPD0195 CBPD0002_2 CBPD0037_2 CBPD0039_2 CBPD0085_2 CBPD0048_3 CBPD0074_3 CBPD0188)
 
 cd $scans
-#for sub in `find . -maxdepth 1 -mindepth 1 -type d -name "CBPD*" | sed -e 's|.*/||'`
+for sub in `find . -maxdepth 1 -mindepth 1 -type d -name "CBPD*" | sed -e 's|.*/||'`
 #for only those in the last 10 days
 #for sub in `find . -maxdepth 1 -mindepth 1 -type d -name "CBPD*" -ctime -10 | sed -e 's|.*/||'| sort`
-for sub in "${subs[@]}"
+#for sub in "${subs[@]}"
 do
 echo $sub
 sleep .5

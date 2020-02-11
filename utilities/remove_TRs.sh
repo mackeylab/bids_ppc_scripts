@@ -19,10 +19,11 @@ num=${4}
 
 data_dir=/data/picsl/mackey_group/CBPD/CBPD_bids
 scan=${data_dir}/sub-${sub}/ses-${ses}/func/sub-${sub}_ses-${ses}_task-rest_run-${scannum}_bold.nii.gz
+
+chmod 750 ${scan}
+fslroi ${scan} ${scan} 0 ${num} #go with FSL
 #AFNI version is an alternative
 #3dcalc -a ${scan}[0-"$num"] -expr 'a' -prefix new.nii.gz
-
-fslroi ${scan} ${scan} 0 ${num} #go with FSL
 
 dataleft=`mri_info --nframes ${scan}`
 

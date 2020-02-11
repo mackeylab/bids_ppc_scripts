@@ -8,7 +8,7 @@ echo "USAGE: new_subj_first.sh <sub_id> <BIDS_output_dir>
 
 Example: new_subj_first.sh CBPDxxx[_x] /data/picsl/mackey_group/BIDS/
 This runs heudiconv, fixes the blip-up blip-down/TOPUP sequences, and assigns the IntendedFor field to the fieldmaps.
-After this is run, check for any runs that need to be .bidsignored, and any sleep during resting-state.
+After this is run, check for any runs that need to be truncated or .bidsignored, and any sleep during resting-state.
 "
 exit
 fi
