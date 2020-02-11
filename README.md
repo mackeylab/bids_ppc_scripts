@@ -9,7 +9,9 @@ The first chunk is run by the `new_subj_first` script. This does the below:
 - Fix TOPUP fieldmaps (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences)).
 - Assign `IntendedFor` field to TOPUP fieldmaps (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/assign_fieldmaps)).
 
-Next, if a subject has fallen asleep or we need to discard some data, the BOLD niftis will be edited to reflect this after running the first chunk (x # of TRs removed), and subjects or runs that are bad will be added to the `.bidsignore` file for documentation for posterity. *Note that adding to the `.bidsignore` does not affect running of any downstream tools such as MRIQC, which will run on these subjects anyways. This simply gives a running list of subjects/runs to exclude.*
+Next, if a subject has fallen asleep or we need to discard some data, the BOLD niftis will be edited to reflect this after running the first chunk (some number # of TRs removed), and subjects or runs that are bad will be added to the `.bidsignore` file for documentation for posterity. 
+
+*Note that adding to the `.bidsignore` does not affect running of any downstream tools such as MRIQC, which will run on these subjects anyways. This simply gives a running list of subjects/runs to exclude based on sleep or incomplete scans (total number of volumes < 130).*
 
 **Note**: There are two ongoing issues in fMRIprep development to both select T1s to use and not auto-merge them for Freesurfer, and use manually-edited brains, which may enable us to run Freesurfer within fMRIprep (see [here](https://github.com/poldracklab/smriprep/issues/104) and [here](https://github.com/poldracklab/fmriprep/issues/1769)). Then we can feed in only the good T1 for Freesurfer and fMRIprep.
 
@@ -49,3 +51,6 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
 - Removing extra TRs for sleeping participants
 - Fixing conflicting `StudyInstanceUID` (for re-registered participants)
+
+## Using the data
+Read the `README` at the top-level of the BIDS dataset!
