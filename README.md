@@ -46,6 +46,9 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 	  conda install sys,json,bisect,glob,os,dateutil
 	  pip install pybids
 	```
+- Freesurfer : 
+	Use the 6.0.0-make-fix version. You will need to add this to your `.bash_profile` or `.bashrc`.
+	
 ## Utilities
 - Copying over dicoms from rico, detecting which have changed in the last four days
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
