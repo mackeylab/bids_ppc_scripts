@@ -1,10 +1,13 @@
 #!/bin/sh
 #$ -cwd
 #$ -V
+#$ -j y
+#$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
+#$ -q himem.q,all.q,basic.q,gpu.q
 set -euo pipefail
 
 if [ $# -eq 0 ]; then
-echo "USAGE: new_subj_first.sh <sub_id> <BIDS_output_dir>
+echo "USAGE: qsub new_subj_first.sh <sub_id> <BIDS_output_dir>
 
 Example: new_subj_first.sh CBPDxxx[_x] /data/picsl/mackey_group/BIDS/
 This runs heudiconv, fixes the blip-up blip-down/TOPUP sequences, and assigns the IntendedFor field to the fieldmaps.

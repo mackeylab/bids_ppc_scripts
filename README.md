@@ -9,7 +9,7 @@ The first chunk is run by the `new_subj_first` script. This does the below:
 - Fix TOPUP fieldmaps (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences)).
 - Assign `IntendedFor` field to TOPUP fieldmaps (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/assign_fieldmaps)).
 
-Next, if a subject has fallen asleep or we need to discard some data, the BOLD niftis will be edited to reflect this after running the first chunk (some number # of TRs removed), and subjects or runs that are bad will be added to the `.bidsignore` file for documentation for posterity. 
+Next, if a subject has fallen asleep or we need to discard some data, the BOLD niftis will be edited to reflect this after running the first chunk (some number # of TRs removed), and subjects or runs that are bad will be added to the `.bidsignore` file for documentation for posterity.
 
 *Note that adding to the `.bidsignore` does not affect running of any downstream tools such as MRIQC, which will run on these subjects anyways. This simply gives a running list of subjects/runs to exclude based on sleep or incomplete scans (total number of volumes < 130).*
 
@@ -21,7 +21,7 @@ Check the MRI protocol notes ([here](https://docs.google.com/spreadsheets/d/15D3
 The second chunk is run by `new_subj_second` script. This does the below:
 - Run [MRIQC](https://mriqc.readthedocs.io/en/stable/) on that subject.
 - Re-run MRIQC group output to auto-add new subjects as they come in.
-- Run Freesurfer on that subject’s chosen T1 (*and T2?*), including hippocampal subfields, on the `CBPD_Scanning_Data` Google sheet (longitudinal subjects will be figured out for this, tbd).
+- Run Freesurfer on that subject’s chosen T1, including hippocampal subfields, on the `CBPD_Scanning_Data` Google sheet (longitudinal subjects will be figured out for this, tbd).
 - When Freesurfer is done, run fMRIprep, which will then run with precomputed Freesurfer inputs.
 
 Then, someone should put their eyes on fMRIprep `.html` files for each subject run through this, and copy MRIQC outputs (including # of resting-state vols kept) into CBPD Scanning Data file.
@@ -30,7 +30,7 @@ There will also be a script to pull only a subset of the columns of MRIQC IQMs a
 
 ## Requirements
 
-Most scripts pull Singularity containers from their location in `/data/picsl/mackey_group/tools`, but you do need a few utilities accessible from your path. I recommend installing them all into a Conda environment. 
+Most scripts pull Singularity containers from their location in `/data/picsl/mackey_group/tools`, but you do need a few utilities accessible from your path. I recommend installing them all into a Conda environment.
 
 - A *current* version of dcm2niix :
 	`conda install -c conda-forge dcm2niix`   
@@ -51,6 +51,7 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
 - Removing extra TRs for sleeping participants
 - Fixing conflicting `StudyInstanceUID` (for re-registered participants)
+- Fixing protocol names of wrongly-named dicom headers
 
 ## Using the data
 Read the `README` at the top-level of the BIDS dataset!

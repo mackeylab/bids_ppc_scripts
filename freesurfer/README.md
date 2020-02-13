@@ -1,0 +1,1 @@
+We decided in August 2019 (Allyson, Anne P, & Ursula T) after comparing Freesurfer run with T1s and T2s versus just T1s that it did not help significantly. Thus here we only feed in the T1 for simplicity.
