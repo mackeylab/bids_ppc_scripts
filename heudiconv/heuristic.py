@@ -19,14 +19,17 @@ def infotodict(seqinfo):
 
     # paths done in BIDS format
     t1w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:02d}_T1w')
+    cs_t1w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_acq-cs_run-{item:02d}_T1w')
     t2w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:02d}_T2w')
     rest = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest_run-{item:02d}_bold')
+    abcdrest=create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-abcdrest_run-{item:02d}_bold')
+    task_piper = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-piper_run-{item:02d}_bold')
     task_nback = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-nback_run-{item:02d}_bold')
     task_num = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-number_run-{item:02d}_bold')
     dwi = create_key('sub-{subject}/{session}/dwi/sub-{subject}_{session}_run-{item:02d}_dwi')
     fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_run-{item:02d}_epi')
 
-    info = {t1w: [], t2w: [], rest: [], task_nback: [], task_num: [], dwi: [], fmap: []}
+    info = {t1w: [], cs_t1w: [], t2w: [], rest: [], abcdrest: [], task_piper: [], task_nback: [], task_num: [], dwi: [], fmap: []}
 
     for s in seqinfo:
         """
@@ -53,12 +56,18 @@ def infotodict(seqinfo):
         * series_description
         * image_type
         """
-        if s.dim3 == 176 and 'MPRAGE' in s.protocol_name:
+        if s.dim3 == 176 and 'vNav_MPRAGE' in s.protocol_name:
             info[t1w].append(s.series_id)
+        if s.dim3 == 176 and 'CSMPRAGE' in s.protocol_name:
+            info[cs_t1w].append(s.series_id)
         if 'T2' in s.protocol_name:
             info[t2w].append(s.series_id)
         if 'rest' in s.protocol_name:
             info[rest].append(s.series_id)
+        if 'ABCD' in s.protocol_name:
+            info[abcdrest].append(s.series_id)
+        if 'piper' in s.protocol_name:
+            info[task_piper].append(s.series_id)
         if 'n_back' in s.protocol_name:
             info[task_nback].append(s.series_id)
         if 'number' in s.protocol_name:
