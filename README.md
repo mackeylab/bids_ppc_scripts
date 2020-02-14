@@ -47,7 +47,8 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 	  pip install pybids
 	```
 - Freesurfer : 
-	Use the 6.0.0-make-fix version. You will need to add this to your `.bash_profile` or `.bashrc`.
+	Use the 6.0.0-make-fix version if you're going to be brain-editing. You will need to add this to your `.bash_profile` or `.bashrc`.
+	More information is [here](https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg55648.html).
 	
 ## Utilities
 - Copying over dicoms from rico, detecting which have changed in the last four days

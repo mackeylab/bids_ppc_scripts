@@ -2,7 +2,7 @@
 #$ -cwd
 #$ -V
 #$ -j y
-#$ -l h_vmem=10.1G,s_vmem=10.0G
+#$ -l h_vmem=19.1G,s_vmem=19.0G
 #$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
 #$ -q himem.q,all.q,basic.q,gpu.q
 
@@ -54,6 +54,7 @@ echo ~~~~~~~~~~~~~
 #If not, run it!
 echo Running Freesurfer with hipp subfields for ${sub} session ${ses}
 
+export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer/
 if [ -e ${BIDS_dir}/derivatives/freesurfer/${sub}/scripts/recon-all.done ]; then
   echo 'Freesurfer is already run for' ${sub} session ${ses}
 elif [ -e /data/picsl/mackey_group/BPD/surfaces/${sub}/scripts/recon-all.done ]; then
@@ -71,7 +72,7 @@ echo ~~~~~~~~~~~~~
 
 #with precomputed Freesurfer
 #we may in the future be able to select which T1 gets fed to fmriprep, without having to .bidsignore them
-#also testing using our fieldmaps for distortion correction of EPIs and not just DWIs
+
 echo Running fMRIprep for ${sub} session ${ses}
 
 #do it

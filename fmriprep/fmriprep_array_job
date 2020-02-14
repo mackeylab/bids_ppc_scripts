@@ -1,0 +1,31 @@
+#!/bin/sh
+
+#Loop script for FMRIPREP
+#$ -j y
+#$ -t 1-3
+#$ -l h_vmem=25.1G,s_vmem=25G
+#$ -o /data/jux/mackey_group/Ursula/projects/in_progress/within_between_network_conn_CBPD/output/qsub_output
+#$ -q himem.q,all.q,basic.q,gpu.q
+unset PYTHONPATH;
+URSULA_PROJ=/data/jux/mackey_group/Ursula/projects/in_progress
+ERROR_DIR=/data/jux/mackey_group/Ursula/projects/in_progress/within_between_network_conn_CBPD/output/qsub_output
+SUBLIST_DIR=${URSULA_PROJ}/within_between_network_conn_CBPD/data/subjectLists
+SUB_FILE=${SUBLIST_DIR}/n15_add_subjs_usable_t1_norestqualfiltering_053019
+SCRIPTS_DIR=${URSULA_PROJ}/within_between_network_conn_CBPD/code/ppc/fmriprep
+
+#mapfile -t ARRAY < ${SUB_FILE}
+declare -a ARRAY=("sub-CBPD0154" "sub-CBPD0141" "sub-CBPD0142")
+#declare -a ARRAY=("sub-CBPD0138")
+LENGTH=${#ARRAY[@]}
+
+i=`expr ${SGE_TASK_ID} - 1`
+
+if [[ $i -ge ${LENGTH} ]]; then
+ echo 'Array index > than number of elements'
+
+else
+ SUB=${ARRAY[$i]}
+
+bash ${SCRIPTS_DIR}/fmriprep_cmd.sh ${SUB}
+
+fi
