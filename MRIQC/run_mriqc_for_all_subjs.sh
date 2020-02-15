@@ -6,7 +6,7 @@
 
 set -euo pipefail
 if [ $# -eq 0 ]; then
-echo "USAGE: run_mriqc_for_all_subjs.sh <BIDS_input_dir> <output_dir_suffix>
+echo "USAGE: run_mriqc_for_all_subjs.sh <full-BIDS_input_dir> <output_dir_suffix>
 
 Example: run_mriqc_for_all_subjs.sh /data/picsl/mackey_group/CBPD/CBPD_bids /derivatives/mriqc_fd_1_mm
 This runs MRIQC on all subjects in the BIDS input directory, and outputs group results
@@ -15,11 +15,14 @@ into the /data/picsl/mackey_group/CBPD/CBPD_bids/derivatives/mriqc_fd_1_mm
 exit
 fi
 
+BIDS_folder=$(cd $1 ; pwd) # why is this not working?
 MACKEY_HOME=/data/picsl/mackey_group/
 tools_dir=${MACKEY_HOME}/tools/singularity
-BIDS_folder=${1}
+user=`whoami` #so that templateflow can go into the home dir of whoever is running.
 output_dir=${BIDS_folder}/derivatives/mriqc_fd_1_mm
+echo ${BIDS_folder}
 
 unset PYTHONPATH;
-singularity run --cleanenv -B ${BIDS_folder}:/mnt ${tools_dir}/mriqc-0.14.2.simg \
-/mnt/ /mnt/derivatives/mriqc_fd_1_mm participant \
+export SINGULARITYENV_TEMPLATEFLOW_HOME=/home/${user}/templateflow
+singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templateflow,${BIDS_folder}:/mnt ${tools_dir}/mriqc-0.15.1.simg \
+/mnt/ /mnt/derivatives/mriqc_fd_1_mm participant -w /tmp --fd_thres 1 --n_procs 10 \

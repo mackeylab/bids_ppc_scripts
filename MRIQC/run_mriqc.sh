@@ -22,7 +22,8 @@ BIDS_folder=${3}
 output_dir=${BIDS_folder}/derivatives/mriqc_fd_1_mm
 
 unset PYTHONPATH;
-singularity run --cleanenv -B ${BIDS_folder}:/mnt ${tools_dir}/mriqc-0.15.1.simg \
+export SINGULARITYENV_TEMPLATEFLOW_HOME=/home/${user}/templateflow
+singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templateflow,${BIDS_folder}:/mnt ${tools_dir}/mriqc-0.15.1.simg \
 /mnt/ /mnt/derivatives/mriqc_fd_1_mm \
 participant \
 -w /tmp \
