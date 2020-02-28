@@ -31,7 +31,7 @@ def infotodict(seqinfo):
     task_num = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-number_run-{item:02d}_bold')
     dwi = create_key('sub-{subject}/{session}/dwi/sub-{subject}_{session}_run-{item:02d}_dwi')
     dwi_fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_run-{item:02d}_epi')
-    abcd_fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_acq-{label}_dir-{dir}_run-{item:02d}_epi')
+    abcd_fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_acq-{label}_dir-{dir}_run-{item:02d}_epi')
 
     info = {t1w: [], cs_acc5_t1w: [], cs_acc42_t1w: [], t2w: [], t2w_vnav: [], rest: [], rest_abcd: [], piper: [], piper_abcd: [], task_nback: [], task_num: [], dwi: [], dwi_fmap: []}
 
