@@ -40,7 +40,7 @@ def files_to_dict(file_list):
     return out_dict
 
 # Get json files for field maps
-fmap_jsons = layout.get(subject= subj, session= sess, datatype='fmap', extensions='json')
+fmap_jsons = layout.get(subject= subj, session= sess, datatype='fmap', acquisition='dwi', extensions='json')
 
 for dir_ in ['AP', 'PA']:
     # Run field map directions independently
@@ -49,14 +49,15 @@ for dir_ in ['AP', 'PA']:
     dts = sorted(fmap_dict.keys())
     intendedfor_dict = {fmap.path: [] for fmap in dir_jsons}
     # Get all scans with associated field maps (bold + dwi)
-    func_jsons = layout.get(subject= subj, session=sess, datatype='dwi', extensions='.json') +\
-                layout.get(subject= subj, session=sess, datatype='bold', extensions='.json')
+    func_jsons = layout.get(subject= subj, session=sess, datatype='dwi', extensions='.json') #+ \
+                #layout.get(subject= subj, session=sess, datatype='func', acquisition = 'abcd', extensions='.json')
     func_dict = files_to_dict(func_jsons)
     for func in func_dict.keys():
         fn, _ = splitext(func_dict[func].path)
         fn += data_suffix
         fn=fn.split(subj_dir)[-1]
         fn = fn.split("/",1)[1]
+
         # Find most immediate field map before scan
         idx = bisect.bisect_right(dts, func) - 1
         fmap_file = fmap_dict[dts[idx]].path

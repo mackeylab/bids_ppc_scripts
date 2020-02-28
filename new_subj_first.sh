@@ -57,7 +57,7 @@ bash ${SCRIPTS_DIR}/fix_topup_sequences/fix_one_sub_topup_sequence.sh ${sub} ${s
 echo Finished fixing TOPUP scan for ${sub} session ${ses}
 
 echo ~~~~~~~~~~~~~
-echo ~~~~ Assign IntendedFor field to fieldmap scans ~~~~~~
+echo ~~~~ Assign IntendedFor field to DWI fieldmaps only ~~~~~~
 echo ~~~~~~~~~~~~~
 
 echo Assigning Intended For field for ${sub} session ${ses}
