@@ -20,7 +20,7 @@ which should detect precomputed freesurfer inputs.
 exit
 fi
 
-BIDS_dir=${1}
+BIDS_dir=$(readlink -f $1)
 sub=${2} #CBPDxxxx
 ses=${3} #01,02,03
 T1=${4}
@@ -32,7 +32,7 @@ echo ~~~~~~~~~~~~~
 
 echo Running MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
-bash ${SCRIPTS_DIR}/mriqc/run_mriqc.sh ${sub} ${ses} ${BIDS_dir}
+bash ${SCRIPTS_DIR}/mriqc/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
 
 echo Finished MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
@@ -42,7 +42,7 @@ echo ~~~~~~~~~~~~~
 
 echo Adding ${sub} session ${ses} to MRIQC group files
 
-bash ${SCRIPTS_DIR}/mriqc/aggregate_group_mriqc.sh ${BIDS_dir}/mriqc_fd_1_mm
+bash ${SCRIPTS_DIR}/mriqc/aggregate_group_mriqc.sh 1 ${BIDS_dir}
 
 echo Finished adding ${sub} session ${ses} to MRIQC group files
 
@@ -75,6 +75,10 @@ echo ~~~~~~~~~~~~~
 
 echo Running fMRIprep for ${sub} session ${ses}
 
-#do it
+bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v1.5.8.sh ${sub} ${ses}
 
 echo Finished running fMRIprep for ${sub} session ${ses}
+
+echo ~~~~~~~~~~~~~
+echo ~~~~ All done! ~~~~~~
+echo ~~~~~~~~~~~~~

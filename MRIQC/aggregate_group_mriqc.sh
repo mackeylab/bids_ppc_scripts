@@ -6,20 +6,27 @@
 
 set -euo pipefail
 if [ $# -eq 0 ]; then
-echo "USAGE: aggregate_group_mriqc.sh <bids_dir>
+echo "USAGE: aggregate_group_mriqc.sh <fd_threshold> <bids_dir>
 
-Example: run_mriqc.sh /data/picsl/my_bids_dir/derivatives/mriqc_fd_1_mm
-This aggregates group output for the MRIQC directory above for all participants who
-have been run through MRIQC.
+Example: run_mriqc.sh 2 /data/picsl/my_bids_dir
+This aggregates group output for the MRIQC directory above for all participants
+who have been run through MRIQC with a 2 mm FD threshold.
 "
 exit
 fi
+
 MACKEY_HOME=/data/picsl/mackey_group/
 tools_dir=${MACKEY_HOME}/tools/singularity
-subject=${1}
-ses=${2}
-BIDS_folder=${3}
-output_dir=${BIDS_folder}/derivatives/mriqc_fd_1_mm
+threshold=${1}
+BIDS_folder=${2}
+output_dir=${BIDS_folder}/derivatives/mriqc_fd_${threshold}_mm
+
+if [ ! -e ${output_dir} ]; then
+  echo 'No one has been run through MRIQC with the threshold of' ${threshold}
+  echo 'Does' ${output_dir} 'exist?'
+  break
+fi
+
 
 unset PYTHONPATH;
 singularity run --cleanenv -B ${BIDS_folder}:/mnt ${tools_dir}/mriqc-0.15.1.simg \

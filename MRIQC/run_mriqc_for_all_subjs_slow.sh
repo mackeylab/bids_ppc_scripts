@@ -11,6 +11,8 @@ echo "USAGE: run_mriqc_for_all_subjs.sh <full-BIDS_input_dir> <output_dir_suffix
 Example: run_mriqc_for_all_subjs.sh /data/picsl/mackey_group/CBPD/CBPD_bids /derivatives/mriqc_fd_1_mm
 This runs MRIQC on all subjects in the BIDS input directory, and outputs group results
 into the /data/picsl/mackey_group/CBPD/CBPD_bids/derivatives/mriqc_fd_1_mm
+
+NOTE: THIS WILL BE QUITE SLOW!
 "
 exit
 fi
