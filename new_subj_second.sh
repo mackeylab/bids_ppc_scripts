@@ -63,6 +63,7 @@ else
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_${T1}_T1w.nii.gz
   echo 'Freesurfer input is' ${freesurfer_input}
   recon-all -all -subjid ${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
+fi
 
 echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}
 

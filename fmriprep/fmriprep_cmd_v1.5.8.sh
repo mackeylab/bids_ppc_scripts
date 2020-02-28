@@ -21,7 +21,7 @@ singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templatef
 --participant-label ${sub} \
 --fs-license-file $HOME/license.txt \
 --fs-subjects-dir ${BIDS_folder}/derivatives/freesurfer \
---output-spaces MNI152NLin6Asym T1w fsaverage:den-10k \
+--output-spaces MNI152NLin6Asym T1w \
 --ignore slicetiming \
 -w $TMPDIR \
 

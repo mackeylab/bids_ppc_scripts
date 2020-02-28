@@ -1,4 +1,6 @@
 #!/bin/sh
+#$ -cwd
+#$ -V
 #$ -j y
 #$ -l h_vmem=10.1G,s_vmem=10.0G
 #$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
@@ -6,7 +8,7 @@
 
 set -euo pipefail
 if [ $# -eq 0 ]; then
-echo "USAGE: run_mriqc.sh <fd_threshold> <subj_id> <session> <bids_dir>
+echo "USAGE: run_mriqc.sh <fd_threshold> <subj_id> <session> <full_bids_dir>
 
 Example: run_mriqc.sh 1 CBPDxxxx 02 /data/picsl/my_bids_dir
 This runs MRIQC with FD threshold of 1 mm on session 02 of subject CBPDxxxx,
@@ -15,12 +17,14 @@ into the /data/picsl/my_bids_dir/derivatives/mriqc_fd_<threshold>_mm
 "
 exit
 fi
+echo ${1} ${2} ${3} ${4}
 MACKEY_HOME=/data/picsl/mackey_group/
 tools_dir=${MACKEY_HOME}/tools/singularity
 threshold=${1}
 subject=${2}
 ses=${3}
-BIDS_folder=$(readlink -f $4)
+BIDS_folder=${4}
+echo $BIDS_folder
 output_dir=${BIDS_folder}/derivatives/mriqc_fd_${threshold}_mm
 user=`whoami`
 
