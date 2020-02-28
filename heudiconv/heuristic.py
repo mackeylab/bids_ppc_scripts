@@ -75,9 +75,9 @@ def infotodict(seqinfo):
         if 'rest' in s.protocol_name and s.TR == 0.8:
             info[rest_abcd].append(s.series_id)
         if 'piper' in s.protocol_name and s.TR == 2:
-            info[task_piper].append(s.series_id)
+            info[piper].append(s.series_id)
         if 'piper' in s.protocol_name and s.TR == 0.8:
-            info[task_piper_abcd].append(s.series_id)
+            info[piper_abcd].append(s.series_id)
         if 'n_back' in s.protocol_name:
             info[task_nback].append(s.series_id)
         if 'number' in s.protocol_name:
