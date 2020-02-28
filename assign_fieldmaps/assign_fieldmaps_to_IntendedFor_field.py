@@ -49,7 +49,8 @@ for dir_ in ['AP', 'PA']:
     dts = sorted(fmap_dict.keys())
     intendedfor_dict = {fmap.path: [] for fmap in dir_jsons}
     # Get all scans with associated field maps (bold + dwi)
-    func_jsons = layout.get(subject= subj, session=sess, datatype='dwi', extensions='.json')
+    func_jsons = layout.get(subject= subj, session=sess, datatype='dwi', extensions='.json') +\
+                layout.get(subject= subj, session=sess, datatype='bold', extensions='.json')
     func_dict = files_to_dict(func_jsons)
     for func in func_dict.keys():
         fn, _ = splitext(func_dict[func].path)
