@@ -66,8 +66,8 @@ def infotodict(seqinfo):
             info[cs_acc5_t1w].append(s.series_id)
         if 'CSMPRAGE_1mm_acc4.2' in s.protocol_name:
             info[cs_acc42_t1w].append(s.series_id)
-        if '-T2_' in s.series_id:
-            info[t2w].append(s.series_id) #keep only the regular T2s that start with -T2
+        if '-T2_' in s.series_id and s.dim3 == 176:
+            info[t2w].append(s.series_id) #keep only the regular T2s that start with -T2 and that aren't vNav setter
         if s.dim3 == 176 and'vNav_T2_SPACE' in s.protocol_name and 'NORM' in s.image_type:
             info[t2w_vnav].append(s.series_id)
         if 'rest' in s.protocol_name and s.TR == 2:
