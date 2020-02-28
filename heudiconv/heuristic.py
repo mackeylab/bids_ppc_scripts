@@ -19,17 +19,21 @@ def infotodict(seqinfo):
 
     # paths done in BIDS format
     t1w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:02d}_T1w')
-    cs_t1w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_acq-cs_run-{item:02d}_T1w')
+    cs_acc5_t1w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_acq-csacc5_run-{item:02d}_T1w')
+    cs_acc42_t1w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_acq-csacc4.2_run-{item:02d}_T1w')
     t2w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:02d}_T2w')
+    t2w_vnav = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_acq-vnav_run-{item:02d}_T2w')
     rest = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest_run-{item:02d}_bold')
-    abcdrest=create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-abcdrest_run-{item:02d}_bold')
-    task_piper = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-piper_run-{item:02d}_bold')
+    rest_abcd=create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest_acq-abcd_run-{item:02d}_bold')
+    piper = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-piper_run-{item:02d}_bold')
+    piper_abcd = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-piper_acq-abcd_run-{item:02d}_bold')
     task_nback = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-nback_run-{item:02d}_bold')
     task_num = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-number_run-{item:02d}_bold')
     dwi = create_key('sub-{subject}/{session}/dwi/sub-{subject}_{session}_run-{item:02d}_dwi')
-    fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_run-{item:02d}_epi')
+    dwi_fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_run-{item:02d}_epi')
+    abcd_fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_acq-{label}_dir-{dir}_run-{item:02d}_epi')
 
-    info = {t1w: [], cs_t1w: [], t2w: [], rest: [], abcdrest: [], task_piper: [], task_nback: [], task_num: [], dwi: [], fmap: []}
+    info = {t1w: [], cs_acc5_t1w: [], cs_acc42_t1w: [], t2w: [], t2w_vnav: [], rest: [], rest_abcd: [], piper: [], piper_abcd: [], task_nback: [], task_num: [], dwi: [], dwi_fmap: []}
 
     for s in seqinfo:
         """
@@ -58,23 +62,33 @@ def infotodict(seqinfo):
         """
         if s.dim3 == 176 and 'vNav_MPRAGE' in s.protocol_name:
             info[t1w].append(s.series_id)
-        if s.dim3 == 176 and 'CSMPRAGE' in s.protocol_name:
-            info[cs_t1w].append(s.series_id)
-        if 'T2' in s.protocol_name:
-            info[t2w].append(s.series_id)
-        if 'rest' in s.protocol_name:
+        if 'CSMPRAGE_1mm_acc5' in s.protocol_name:
+            info[cs_acc5_t1w].append(s.series_id)
+        if 'CSMPRAGE_1mm_acc4.2' in s.protocol_name:
+            info[cs_acc42_t1w].append(s.series_id)
+        if '-T2_' in s.series_id:
+            info[t2w].append(s.series_id) #keep only the regular T2s that start with -T2
+        if s.dim3 == 176 and'vNav_T2_SPACE' in s.protocol_name and 'NORM' in s.image_type:
+            info[t2w_vnav].append(s.series_id)
+        if 'rest' in s.protocol_name and s.TR == 2:
             info[rest].append(s.series_id)
-        if 'ABCD' in s.protocol_name:
-            info[abcdrest].append(s.series_id)
-        if 'piper' in s.protocol_name:
+        if 'rest' in s.protocol_name and s.TR == 0.8:
+            info[rest_abcd].append(s.series_id)
+        if 'piper' in s.protocol_name and s.TR == 2:
             info[task_piper].append(s.series_id)
+        if 'piper' in s.protocol_name and s.TR == 0.8:
+            info[task_piper_abcd].append(s.series_id)
         if 'n_back' in s.protocol_name:
             info[task_nback].append(s.series_id)
         if 'number' in s.protocol_name:
             info[task_num].append(s.series_id)
+        if 'fMRI' in s.protocol_name and'DistortionMap' in s.protocol_name and '_PA' in s.protocol_name:
+            info[abcd_fmap].append({'item': s.series_id, 'dir': 'PA', 'label': 'fMRI'});
+        if 'fMRI' in s.protocol_name and 'DistortionMap' in s.protocol_name and '_AP' in s.protocol_name:
+            info[abcd_fmap].append({'item': s.series_id, 'dir': 'AP', 'label': 'fMRI'});
         if 'DTI_64' in s.protocol_name:
             info[dwi].append(s.series_id)
         if 'DTI_TOPUP' in s.protocol_name:
-            info[fmap].append(s.series_id)
+            info[dwi_fmap].append(s.series_id)
 
     return info
