@@ -1,32 +1,34 @@
 # BIDS Preprocessing Pipeline
 
-This repo contains scripts for minimal containerized preprocessing for Mackey Lab child data in BIDS. These scripts using *containers*, which you can learn more about [here](https://github.com/mackeylab/home/wiki/Singularity-containers). They operate in two chunks.
+This repo contains scripts for minimal containerized preprocessing for Mackey Lab child data in BIDS. These scripts using *containers*, which you can learn more about [here](https://github.com/mackeylab/home/wiki/Singularity-containers), and work on our longitudinal data. They operate in two chunks.
 
 ## First script
 The first chunk is run by the `new_subj_first` script. This does the below:
 
 - Convert to nifti format with [Heudiconv](https://heudiconv.readthedocs.io/en/latest/), put into `CBPD_bids` directory (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/heudiconv)).
-- Fix TOPUP fieldmaps (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences)).
+- Fix TOPUP fieldmaps for diffusion (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences)).
 - Assign `IntendedFor` field to TOPUP fieldmaps (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/assign_fieldmaps)).
 
-Next, if a subject has fallen asleep or we need to discard some data, the BOLD niftis will be edited to reflect this after running the first chunk (some number # of TRs removed), and subjects or runs that are bad will be added to the `.bidsignore` file for documentation for posterity.
+Next, if a subject has fallen asleep or we need to discard some data, the BOLD niftis will be edited to reflect this after running the first chunk (some number # of TRs removed, for example, for sleeping), and subjects or runs that are bad or incomplete (total number of volumes < 130) will be documented in the CBPD Scanning Notes.
 
-*Note that adding to the `.bidsignore` does not affect running of any downstream tools such as MRIQC, which will run on these subjects anyways. This simply gives a running list of subjects/runs to exclude based on sleep or incomplete scans (total number of volumes < 130).*
+**Note**: *Adding to the `.bidsignore` does not affect running of any downstream tools such as MRIQC, which will run on these subjects anyways. This simply tells the `bids-validator` to ignore these files when checking whether the folder is valid.*
 
-**Note**: There are two ongoing issues in fMRIprep development to both select T1s to use and not auto-merge them for Freesurfer, and use manually-edited brains, which may enable us to run Freesurfer within fMRIprep (see [here](https://github.com/poldracklab/smriprep/issues/104) and [here](https://github.com/poldracklab/fmriprep/issues/1769)). Then we can feed in only the good T1 for Freesurfer and fMRIprep.
-
-Check the MRI protocol notes ([here](https://docs.google.com/spreadsheets/d/15D3aYw1m127c-BHkAAxGTNqqpewZirn1OTzHZomUpUU/edit#gid=0)) or CBPD Scanning Data ([here](https://docs.google.com/spreadsheets/d/1tEMxyA7doTrpNZVW6m5qZJJG_muINBZU7ryn1AGwQtI/edit#gid=0)) for whether a participant has fallen asleep, and at what time. If we didn't note when they fell asleep, put the whole run into `.bidsignore`. A script for discarding extra TRs is [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences/README.md).
+Check the MRI protocol notes ([here](https://docs.google.com/spreadsheets/d/15D3aYw1m127c-BHkAAxGTNqqpewZirn1OTzHZomUpUU/edit#gid=0)) or CBPD Scanning Data ([here](https://docs.google.com/spreadsheets/d/1tEMxyA7doTrpNZVW6m5qZJJG_muINBZU7ryn1AGwQtI/edit#gid=0)) for whether a participant has fallen asleep, and at what time. If we didn't note when they fell asleep, mark the whole run to discard for sleeping. A script for discarding extra TRs is [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences/README.md).
 
 ## Second script
 The second chunk is run by `new_subj_second` script. This does the below:
 - Run [MRIQC](https://mriqc.readthedocs.io/en/stable/) on that subject.
-- Re-run MRIQC group output to auto-add new subjects as they come in.
-- Run Freesurfer on that subject’s chosen T1, including hippocampal subfields, on the `CBPD_Scanning_Data` Google sheet (longitudinal subjects will be figured out for this, tbd).
-- When Freesurfer is done, run fMRIprep, which will then run with precomputed Freesurfer inputs.
+- Re-run MRIQC group command to add the new subject to the group output.
+- Run cross-sectional Freesurfer on that subject’s chosen T1, including hippocampal subfields. The T1 used is documented on the `CBPD_Scanning_Data` Google sheet.
+- When Freesurfer is done, run fMRIprep specifically *on this session*, which will then run with precomputed Freesurfer inputs.
 
-Then, someone should put their eyes on fMRIprep `.html` files for each subject run through this, and copy MRIQC outputs (including # of resting-state vols kept) into CBPD Scanning Data file.
+Then, someone should put their eyes on fMRIprep `.html` files for the subject, and copy MRIQC outputs (including # of resting-state vols kept) into CBPD Scanning Data file.
 
 There will also be a script to pull only a subset of the columns of MRIQC IQMs and aggregate them into a file to update the `CBPD_Scanning_Data` Google sheet with.
+
+**Note**: Here we treat longitudinal timepoints as separate subjects for Freesurfer and fMRIprep, given that we might expect significant anatomical change between timepoints. Longitudinal Freesurfer pipelines will be run separately, as they are not being used for functional preprocessing (per APM 03/2020).
+
+There is a new feature in fMRIprep to select which data to run based on a filter constructed in `pybids`. We may be able to run cross-sectional Freesurfer within fMRIprep using the `--bids-filter-file` flag.
 
 ## Requirements
 
@@ -46,10 +48,10 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 	  conda install sys,json,bisect,glob,os,dateutil
 	  pip install pybids
 	```
-- Freesurfer : 
-	Use the 6.0.0-make-fix version if you're going to be brain-editing. You will need to add this to your `.bash_profile` or `.bashrc`.
+- Freesurfer :
+	Use the 6.0.0-make-fix version if you're going to be brain-editing. You will need to add this to your `.bash_profile` or `.bashrc`, or modify the path in `new_subject_second.sh`.
 	More information is [here](https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg55648.html).
-	
+
 ## Utilities
 - Copying over dicoms from rico, detecting which have changed in the last four days
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
@@ -58,4 +60,4 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 - Fixing protocol names of wrongly-named dicom headers
 
 ## Using the data
-Read the `README` at the top-level of the BIDS dataset!
+Read the `README` and `CHANGES` at the top-level of the BIDS dataset!

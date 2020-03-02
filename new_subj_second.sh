@@ -55,15 +55,23 @@ echo ~~~~~~~~~~~~~
 echo Running Freesurfer with hipp subfields for ${sub} session ${ses}
 
 export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer/
-if [ -e ${BIDS_dir}/derivatives/freesurfer/${sub}/scripts/recon-all.done ]; then
+export FREESURFER_HOME=/share/apps/freesurfer/6.0.0-make-fix/
+if [ ${ses} == 01 ]; then
+  fs_sub=${sub}
+elif [ ${ses} == 02 ]; then
+  fs_sub=${sub}_2
+else [ ${ses} == 03 ]; then
+  fs_sub=${sub}_3
+fi
+if [ -e ${BIDS_dir}/derivatives/freesurfer/${fs_sub}/scripts/recon-all.done ]; then
   echo 'Freesurfer is already run for' ${sub} session ${ses}
-elif [ -e /data/picsl/mackey_group/BPD/surfaces/${sub}/scripts/recon-all.done ]; then
+elif [ -e /data/picsl/mackey_group/BPD/surfaces/${fs_sub}/scripts/recon-all.done ]; then
   echo 'Freesurfer surfaces are in /BPD/surfaces/ but not in the BIDS directory you specified' for ${sub} session ${ses}
   break
 else
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_${T1}_T1w.nii.gz
   echo 'Freesurfer input is' ${freesurfer_input}
-  recon-all -all -subjid ${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
+  recon-all -all -subjid ${fs_sub} -i ${freesurfer_input} -hippocampal-subfields-T1
 fi
 
 echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}
@@ -73,11 +81,11 @@ echo ~~~~ Run fMRIprep ~~~~~~
 echo ~~~~~~~~~~~~~
 
 #with precomputed Freesurfer
-#we may in the future be able to select which T1 gets fed to fmriprep, without having to .bidsignore them
+#we may be able to run Freesurfer cross-sectionally within fmriprep by using --bids-filter-file
 
 echo Running fMRIprep for ${sub} session ${ses}
 
-bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v1.5.8.sh ${sub} ${ses}
+bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v1.5.8.sh ${sub} ${ses} ${BIDS_dir}
 
 echo Finished running fMRIprep for ${sub} session ${ses}
 
