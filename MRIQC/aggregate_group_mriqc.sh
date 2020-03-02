@@ -1,4 +1,6 @@
 #!/bin/sh
+#$ -cwd
+#$ -V
 #$ -j y
 #$ -l h_vmem=10.1G,s_vmem=10.0G
 #$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
@@ -30,7 +32,7 @@ fi
 
 unset PYTHONPATH;
 singularity run --cleanenv -B ${BIDS_folder}:/mnt ${tools_dir}/mriqc-0.15.1.simg \
-/mnt/ /mnt/derivatives/mriqc_fd_1_mm \
+/mnt/ /mnt/derivatives/mriqc_fd_${threshold}_mm \
 group \
 -w ${TMP} \
 

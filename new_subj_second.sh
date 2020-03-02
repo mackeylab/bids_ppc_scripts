@@ -32,7 +32,7 @@ echo ~~~~~~~~~~~~~
 
 echo Running MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
-bash ${SCRIPTS_DIR}/mriqc/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
+bash ${SCRIPTS_DIR}/MRIQC/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
 
 echo Finished MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
@@ -42,7 +42,7 @@ echo ~~~~~~~~~~~~~
 
 echo Adding ${sub} session ${ses} to MRIQC group files
 
-bash ${SCRIPTS_DIR}/mriqc/aggregate_group_mriqc.sh 1 ${BIDS_dir}
+bash ${SCRIPTS_DIR}/MRIQC/aggregate_group_mriqc.sh 1 ${BIDS_dir}
 
 echo Finished adding ${sub} session ${ses} to MRIQC group files
 
@@ -59,6 +59,7 @@ if [ -e ${BIDS_dir}/derivatives/freesurfer/${sub}/scripts/recon-all.done ]; then
   echo 'Freesurfer is already run for' ${sub} session ${ses}
 elif [ -e /data/picsl/mackey_group/BPD/surfaces/${sub}/scripts/recon-all.done ]; then
   echo 'Freesurfer surfaces are in /BPD/surfaces/ but not in the BIDS directory you specified' for ${sub} session ${ses}
+  break
 else
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_${T1}_T1w.nii.gz
   echo 'Freesurfer input is' ${freesurfer_input}
