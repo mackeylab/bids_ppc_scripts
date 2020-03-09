@@ -19,8 +19,8 @@ Check the MRI protocol notes ([here](https://docs.google.com/spreadsheets/d/15D3
 The second chunk is run by `new_subj_second` script. This does the below:
 - Run [MRIQC](https://mriqc.readthedocs.io/en/stable/) on that subject.
 - Re-run MRIQC group command to add the new subject to the group output.
-- Run cross-sectional Freesurfer on that subject’s chosen T1, including hippocampal subfields. The T1 used is documented on the `CBPD_Scanning_Data` Google sheet.
-- When Freesurfer is done, run fMRIprep specifically *on this session*, which will then run with precomputed Freesurfer inputs.
+- Run cross-sectional Freesurfer on that subject’s chosen T1, including hippocampal subfields. The T1 used is documented on the `CBPD_Scanning_Data` Google sheet. Each timepoint has a separate Freesurfer `SUBJECTS_DIR`.
+- When Freesurfer is done, run fMRIprep specifically *on this session*, which will then run with precomputed session-specific Freesurfer inputs.
 
 Then, someone should put their eyes on fMRIprep `.html` files for the subject, and copy MRIQC outputs (including # of resting-state vols kept) into CBPD Scanning Data file.
 
@@ -28,7 +28,7 @@ There will also be a script to pull only a subset of the columns of MRIQC IQMs a
 
 **Note**: Here we treat longitudinal timepoints as separate subjects for Freesurfer and fMRIprep, given that we might expect significant anatomical change between timepoints. Longitudinal Freesurfer pipelines will be run separately, as they are not being used for functional preprocessing (per APM 03/2020).
 
-There is a new feature in fMRIprep to select which data to run based on a filter constructed in `pybids`. We may be able to run cross-sectional Freesurfer within fMRIprep using the `--bids-filter-file` flag.
+There is a new feature in fMRIprep to select which data to run based on a filter constructed in `pybids`. We are able to run cross-sectional Freesurfer within fMRIprep using the `--bids-filter-file` flag.
 
 ## Requirements
 
