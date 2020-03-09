@@ -5,12 +5,9 @@
 #$ -q himem.q,all.q,basic.q,gpu.q
 
 unset PYTHONPATH;
-# sub=${1}
-# ses=${2}
-# BIDS_folder=${3}
-sub=CBPD0207
-ses=01
-BIDS_folder=/data/picsl/mackey_group/CBPD/CBPD_bids/
+sub=${1}
+ses=${2}
+BIDS_folder=${3}
 tools_dir=/data/picsl/mackey_group/tools/singularity
 output_dir=${BIDS_folder}/derivatives/
 echo ${sub}

@@ -32,7 +32,7 @@ echo ~~~~~~~~~~~~~
 
 echo Running MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
-#bash ${SCRIPTS_DIR}/MRIQC/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
+bash ${SCRIPTS_DIR}/MRIQC/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
 
 echo Finished MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
@@ -42,7 +42,7 @@ echo ~~~~~~~~~~~~~
 
 echo Adding ${sub} session ${ses} to MRIQC group files
 
-#bash ${SCRIPTS_DIR}/MRIQC/aggregate_group_mriqc.sh 1 ${BIDS_dir}
+bash ${SCRIPTS_DIR}/MRIQC/aggregate_group_mriqc.sh 1 ${BIDS_dir}
 
 echo Finished adding ${sub} session ${ses} to MRIQC group files
 
@@ -111,7 +111,7 @@ echo ~~~~~~~~~~~~~
 export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer
 echo Running fMRIprep for ${sub} session ${ses}
 
-echo bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v1.5.8.sh ${sub} ${ses} ${BIDS_dir}
+echo bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v20.0.1.sh ${sub} ${ses} ${BIDS_dir}
 
 echo Finished running fMRIprep for ${sub} session ${ses}
 
