@@ -32,7 +32,7 @@ echo ~~~~~~~~~~~~~
 
 echo Running MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
-bash ${SCRIPTS_DIR}/MRIQC/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
+#bash ${SCRIPTS_DIR}/MRIQC/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
 
 echo Finished MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
@@ -42,7 +42,7 @@ echo ~~~~~~~~~~~~~
 
 echo Adding ${sub} session ${ses} to MRIQC group files
 
-bash ${SCRIPTS_DIR}/MRIQC/aggregate_group_mriqc.sh 1 ${BIDS_dir}
+#bash ${SCRIPTS_DIR}/MRIQC/aggregate_group_mriqc.sh 1 ${BIDS_dir}
 
 echo Finished adding ${sub} session ${ses} to MRIQC group files
 
@@ -60,7 +60,7 @@ if [ ${ses} == 01 ]; then
   fs_sub=${sub}
 elif [ ${ses} == 02 ]; then
   fs_sub=${sub}_2
-else [ ${ses} == 03 ]; then
+elif [ ${ses} == 03 ]; then
   fs_sub=${sub}_3
 fi
 if [ -e ${BIDS_dir}/derivatives/freesurfer/${fs_sub}/scripts/recon-all.done ]; then
@@ -79,16 +79,28 @@ echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}
 echo ~~~~~~~~~~~~~
 echo ~~~~ Freesurfer on experimental T1s ~~~~~~
 echo ~~~~~~~~~~~~~
-if [-e CSMPRAGE_1mm_acc4 and not -e in freesurfer]; then
-echo There is a CSMPRAGE_1mm_acc4
-export SUBJECTS_DIR=different directory
-freesurfer_input=xxx
-recon-all -all -subjid ${fs_sub} -i ${freesurfer_input}
-echo ran
 
+export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_acc42/
+if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc42*.nii.gz ] && [ ! -d ${SUBJECTS_DIR}/${sub}/ ]; then
+  echo 'There is a CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses}
+  freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc42*.nii.gz
+  echo $freesurfer_input
+  recon-all -all -subjid ${fs_sub} -i ${freesurfer_input}
+  echo 'Ran recon-all for CSMPRAGE_1mm_acc4'
+else
+  echo 'No CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses} 'exists'
+fi
 
-if -ep
-
+export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_acc5/
+if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc5*.nii.gz ] && [ ! -d ${SUBJECTS_DIR}/${sub}/ ]; then
+  echo 'There is a CSMPRAGE_1mm_acc5 for ' ${sub} 'session' ${ses}
+  freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc5*.nii.gz
+  echo $freesurfer_input
+  recon-all -all -subjid ${fs_sub} -i ${freesurfer_input}
+  echo 'Ran recon-all for CSMPRAGE_1mm_acc5'
+else
+  echo 'No CSMPRAGE_1mm_acc5 for' ${sub} 'session' ${ses} 'exists'
+fi
 
 echo ~~~~~~~~~~~~~
 echo ~~~~ Run fMRIprep ~~~~~~
@@ -96,10 +108,10 @@ echo ~~~~~~~~~~~~~
 
 #with precomputed Freesurfer
 #we may be able to run Freesurfer cross-sectionally within fmriprep by using --bids-filter-file
-
+export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer
 echo Running fMRIprep for ${sub} session ${ses}
 
-bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v1.5.8.sh ${sub} ${ses} ${BIDS_dir}
+echo bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v1.5.8.sh ${sub} ${ses} ${BIDS_dir}
 
 echo Finished running fMRIprep for ${sub} session ${ses}
 
