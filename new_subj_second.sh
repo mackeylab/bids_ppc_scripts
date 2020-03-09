@@ -32,7 +32,11 @@ echo ~~~~~~~~~~~~~
 
 echo Running MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
-bash ${SCRIPTS_DIR}/MRIQC/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
+if [ -d ${BIDS_dir}/derivatives/mriqc_fd_1_mm/sub-${sub}/ses-${ses} ]; then
+  echo 'MRIQC already run with 1 mm threshold for' ${sub} 'session' ${ses}
+else
+  bash ${SCRIPTS_DIR}/MRIQC/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
+fi
 
 echo Finished MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
@@ -111,7 +115,7 @@ echo ~~~~~~~~~~~~~
 export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer
 echo Running fMRIprep for ${sub} session ${ses}
 
-echo bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v20.0.1.sh ${sub} ${ses} ${BIDS_dir}
+echo bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v20.0.2.sh ${sub} ${ses} ${BIDS_dir}
 
 echo Finished running fMRIprep for ${sub} session ${ses}
 
