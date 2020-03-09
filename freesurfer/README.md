@@ -4,4 +4,4 @@
 
 We run "cross-sectional" Freesurfer, including hippocampal subfields, with a separate Freesurfer `SUBJECTS_DIR` for each timepoint. This allows us to specify session-specific runs of fMRIprep with session-specific Freesurfer using the fMRIprep flag `--fs-subjects-dir` set for each timepoint.
 
-There is a new feature in fMRIprep to select which data to run based on a filter constructed in `pybids`. We select which session and acquisitions to process within fMRIprep using the `--bids-filter-file` flag (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/freesurfer)).
+There is a new feature in fMRIprep to select which data to run based on a filter constructed in `pybids`. We select which session and acquisitions to process within fMRIprep using the `--bids-filter-file` flag (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/fmriprep)).
