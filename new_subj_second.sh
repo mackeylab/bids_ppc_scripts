@@ -77,6 +77,20 @@ fi
 echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}
 
 echo ~~~~~~~~~~~~~
+echo ~~~~ Freesurfer on experimental T1s ~~~~~~
+echo ~~~~~~~~~~~~~
+if [-e CSMPRAGE_1mm_acc4 and not -e in freesurfer]; then
+echo There is a CSMPRAGE_1mm_acc4
+export SUBJECTS_DIR=different directory
+freesurfer_input=xxx
+recon-all -all -subjid ${fs_sub} -i ${freesurfer_input}
+echo ran
+
+
+if -ep
+
+
+echo ~~~~~~~~~~~~~
 echo ~~~~ Run fMRIprep ~~~~~~
 echo ~~~~~~~~~~~~~
 

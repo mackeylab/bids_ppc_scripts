@@ -24,7 +24,7 @@ singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templatef
 --fs-subjects-dir ${BIDS_folder}/derivatives/freesurfer \
 --bids-filter-file ${location_of_filter_file}/ses-${ses}.json \
 --output-spaces MNI152NLin6Asym T1w \
---ignore slicetiming \
+--ignore slicetiming sbref \ #ignore sbref in newer sequences since we didn't used to save it.
 -w $TMPDIR \
 
 #fsaverage:den-10k is fsaverage5

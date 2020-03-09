@@ -20,7 +20,7 @@ singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templatef
 --participant-label ${sub} \
 --fs-license-file $HOME/license.txt \
 --output-spaces MNI152NLin6Asym T1w fsaverage:den-10k \
---ignore slicetiming \
+--ignore slicetiming sbref \ #ignore sbref in newer sequences since we didn't used to save it.
 -w $TMPDIR \
 
 #fsaverage:den-10k is fsaverage5

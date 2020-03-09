@@ -19,3 +19,6 @@ dir=$(cut -d'/' -f 3- <<< ${2}) #take off the /data/ prefix
 echo $dir
 
 singularity run -B /data:/mnt --cleanenv /data/picsl/mackey_group/tools/singularity/heudiconv0.5.4.simg -d /mnt/picsl/mackey_group/BPD/dicoms/{subject}/*.dcm -o /mnt/${dir} -f /mnt/picsl/mackey_group/CBPD/bids_ppc_scripts/heudiconv/heuristic.py -s ${subID} --ses 01 -c dcm2niix -b --minmeta;
+
+#to get dicom information
+#singularity run -B /data:/mnt --cleanenv /data/picsl/mackey_group/tools/singularity/heudiconv0.5.4.simg -d /mnt/picsl/mackey_group/BPD/dicoms/{subject}/*.dcm -o /mnt/${dir} -f convertall -s ${subID} --ses 01 -c none -b --minmeta;
