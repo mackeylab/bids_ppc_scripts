@@ -18,9 +18,9 @@ Check the MRI protocol notes ([here](https://docs.google.com/spreadsheets/d/15D3
 ## Second script
 The second chunk is run by `new_subj_second` script. This does the below:
 - Run [MRIQC](https://mriqc.readthedocs.io/en/stable/) on that subject.
-- Re-run MRIQC group command to add the new subject to the group output.
-- Run cross-sectional Freesurfer on that subject’s chosen T1, including hippocampal subfields. The T1 used is documented on the `CBPD_Scanning_Data` Google sheet. Each timepoint has a separate Freesurfer `SUBJECTS_DIR`. (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/freesurfer)).
-- Run cross-sectional Freesurfer on any experimental T1 sequences. These also have separate Freesurfer `SUBJECTS_DIR`.
+- Re-run MRIQC group command to add the new subject to the group MRIQC tsv files.
+- Run cross-sectional Freesurfer on that subject’s chosen T1, including hippocampal subfields. The T1 used is documented on the `CBPD_Scanning_Data` Google sheet. Each timepoint has a separate Freesurfer `SUBJECTS_DIR` (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/freesurfer)).
+- Run cross-sectional Freesurfer on any experimental T1 sequences. Each experimental sequence has a separate Freesurfer `SUBJECTS_DIR`.
 - When Freesurfer is done, run fMRIprep specifically *on this session*, which will then run with precomputed session-specific Freesurfer inputs. (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/fmriprep)).
 
 Then, someone should put their eyes on fMRIprep `.html` files for the subject, and copy MRIQC outputs (including # of resting-state vols kept) into CBPD Scanning Data file.
