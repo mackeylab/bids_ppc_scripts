@@ -25,6 +25,7 @@ singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templatef
 --fs-license-file $HOME/license.txt \
 --fs-subjects-dir /mnt/derivatives/freesurfer_t${ses:1} \
 --bids-filter-file /mnt/derivatives/fmriprep/ses-${ses}.json \
+--skull-strip-template MNIPediatricAsym:res-1:cohort-2 \
 --output-spaces MNI152NLin6Asym T1w MNIPediatricAsym:res-1:cohort-2 \
 --ignore sbref \
 -w $TMPDIR \
