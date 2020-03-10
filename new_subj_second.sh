@@ -58,24 +58,27 @@ echo ~~~~~~~~~~~~~
 #If not, run it!
 echo Running Freesurfer with hipp subfields for ${sub} session ${ses}
 
-export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer/
 export FREESURFER_HOME=/share/apps/freesurfer/6.0.0-make-fix/
 if [ ${ses} == 01 ]; then
   fs_sub=${sub}
+  export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_t1
 elif [ ${ses} == 02 ]; then
   fs_sub=${sub}_2
+  export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_t2
 elif [ ${ses} == 03 ]; then
   fs_sub=${sub}_3
+  export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_t3
 fi
-if [ -e ${BIDS_dir}/derivatives/freesurfer/${fs_sub}/scripts/recon-all.done ]; then
+if [ -e ${SUBJECTS_DIR}/sub-${sub}/scripts/recon-all.done ]; then
   echo 'Freesurfer is already run for' ${sub} session ${ses}
 elif [ -e /data/picsl/mackey_group/BPD/surfaces/${fs_sub}/scripts/recon-all.done ]; then
   echo 'Freesurfer surfaces are in /BPD/surfaces/ but not in the BIDS directory you specified' for ${sub} session ${ses}
+  echo 'Please move them and rename them to begin with sub-'
   break
 else
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_${T1}_T1w.nii.gz
   echo 'Freesurfer input is' ${freesurfer_input}
-  recon-all -all -subjid ${fs_sub} -i ${freesurfer_input} -hippocampal-subfields-T1
+  recon-all -all -subjid sub-${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
 fi
 
 echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}
@@ -85,23 +88,33 @@ echo ~~~~ Freesurfer on experimental T1s ~~~~~~
 echo ~~~~~~~~~~~~~
 
 export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_acc42/
-if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc42*.nii.gz ] && [ ! -d ${SUBJECTS_DIR}/${sub}/ ]; then
+if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc42*.nii.gz ]; then
   echo 'There is a CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses}
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc42*.nii.gz
+  if [ ! -d ${SUBJECTS_DIR}/${sub}/ ]; then
+  echo 'Running recon-all for CSMPRAGE_1mm_acc42'
   echo $freesurfer_input
-  recon-all -all -subjid ${fs_sub} -i ${freesurfer_input}
-  echo 'Ran recon-all for CSMPRAGE_1mm_acc4'
+  recon-all -all -subjid sub-${fs_sub} -i ${freesurfer_input}
+  echo 'Ran recon-all for CSMPRAGE_1mm_acc42'
+  else
+    echo 'Freesurfer was already started for CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses}
+  fi
 else
   echo 'No CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses} 'exists'
 fi
 
 export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_acc5/
-if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc5*.nii.gz ] && [ ! -d ${SUBJECTS_DIR}/${sub}/ ]; then
+if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc5*.nii.gz ]; then
   echo 'There is a CSMPRAGE_1mm_acc5 for ' ${sub} 'session' ${ses}
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc5*.nii.gz
+  if [ ! -d ${SUBJECTS_DIR}/${sub}/ ]; then
+  echo 'Running recon-all for CSMPRAGE_1mm_acc5'
   echo $freesurfer_input
-  recon-all -all -subjid ${fs_sub} -i ${freesurfer_input}
+  recon-all -all -subjid sub-${fs_sub} -i ${freesurfer_input}
   echo 'Ran recon-all for CSMPRAGE_1mm_acc5'
+  else
+    echo 'Freesurfer was already started for CSMPRAGE_1mm_acc5 for' ${sub} 'session' ${ses}
+  fi
 else
   echo 'No CSMPRAGE_1mm_acc5 for' ${sub} 'session' ${ses} 'exists'
 fi
@@ -115,7 +128,7 @@ echo ~~~~~~~~~~~~~
 export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer
 echo Running fMRIprep for ${sub} session ${ses}
 
-echo bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v20.0.2.sh ${sub} ${ses} ${BIDS_dir}
+bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v20.0.2.sh ${sub} ${ses} ${BIDS_dir}
 
 echo Finished running fMRIprep for ${sub} session ${ses}
 

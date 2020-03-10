@@ -5,12 +5,12 @@
 #$ -q himem.q,all.q,basic.q,gpu.q
 
 unset PYTHONPATH;
-# sub=${1} #CBPDxxxx
-# ses=${2} #01
-# BIDS_folder=${3}
-sub=CBPD0207
-ses=01
-BIDS_folder=/data/picsl/mackey_group/CBPD/CBPD_bids/
+sub=${1} #CBPDxxxx
+ses=${2} #01
+BIDS_folder=${3}
+# sub=CBPD0162
+# ses=02
+# BIDS_folder=/data/picsl/mackey_group/CBPD/CBPD_bids/
 tools_dir=/data/picsl/mackey_group/tools/singularity
 output_dir=${BIDS_folder}/derivatives/
 echo ${sub}
@@ -20,15 +20,17 @@ user=`whoami` #so that templateflow can go into the home dir of whoever is runni
 # ${tools_dir}/fmriprep-1.2.6-1.simg use this when running ABCD
 export SINGULARITYENV_TEMPLATEFLOW_HOME=/home/${user}/templateflow
 singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templateflow,${BIDS_folder}:/mnt ${tools_dir}/fmriprep-20-0-2.simg \
-/mnt/ /mnt/derivatives/ participant \
+/mnt/ /mnt/derivatives/fmriprep_t${ses:1} participant \
 --participant-label ${sub} \
 --fs-license-file $HOME/license.txt \
+--fs-subjects-dir /mnt/derivatives/freesurfer_t${ses:1} \
 --bids-filter-file /mnt/derivatives/fmriprep/ses-${ses}.json \
 --output-spaces MNI152NLin6Asym T1w MNIPediatricAsym:res-1:cohort-2 \
---ignore slicetiming sbref \
+--ignore sbref \
 -w $TMPDIR \
 
 #--fs-subjects_dir #set this to different timepoints to run subjects as different people!
 #ignore sbref in newer sequences since we didn't used to save it.
+# we are doing slice-timing correction here.
 #fsaverage:den-10k is fsaverage5
 #--output-space MNI152NLin6Asym T1w fsnative fsaverage:den-10k \
