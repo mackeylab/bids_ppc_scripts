@@ -84,14 +84,14 @@ fi
 echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}
 
 echo ~~~~~~~~~~~~~
-echo ~~~~ Freesurfer on experimental T1s ~~~~~~
+echo ~~~~ Freesurfer on experimental T1s (all timepoints) ~~~~~~
 echo ~~~~~~~~~~~~~
 
 export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_acc42/
 if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc42*.nii.gz ]; then
   echo 'There is a CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses}
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc42*.nii.gz
-  if [ ! -d ${SUBJECTS_DIR}/${sub}/ ]; then
+  if [ ! -d ${SUBJECTS_DIR}/sub-${fs_sub}/ ]; then
   echo 'Running recon-all for CSMPRAGE_1mm_acc42'
   echo $freesurfer_input
   recon-all -all -subjid sub-${fs_sub} -i ${freesurfer_input}
@@ -107,7 +107,7 @@ export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_acc5/
 if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc5*.nii.gz ]; then
   echo 'There is a CSMPRAGE_1mm_acc5 for ' ${sub} 'session' ${ses}
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc5*.nii.gz
-  if [ ! -d ${SUBJECTS_DIR}/${sub}/ ]; then
+  if [ ! -d ${SUBJECTS_DIR}/sub-${fs_sub}/ ]; then
   echo 'Running recon-all for CSMPRAGE_1mm_acc5'
   echo $freesurfer_input
   recon-all -all -subjid sub-${fs_sub} -i ${freesurfer_input}
