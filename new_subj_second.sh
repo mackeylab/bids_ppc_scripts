@@ -9,7 +9,7 @@
 set -euo pipefail
 
 if [ $# -eq 0 ]; then
-echo "USAGE: qsub new_subj_second.sh <BIDS_input_dir> <sub_id> <ses> <run of T1 for Freesurfer>
+echo "USAGE: qsub new_subj_second.sh <full_path_to_BIDS_input_dir> <sub_id> <ses> <run of T1 for Freesurfer>
 
 Example: new_subj_second.sh /data/picsl/my_bids_dir CBPDxxx xxx run-02
 This runs MRIQC on this subject, and adds their quality metrics to the MRIQC group output.
