@@ -51,6 +51,16 @@ bash ${SCRIPTS_DIR}/MRIQC/aggregate_group_mriqc.sh 1 ${BIDS_dir}
 echo Finished adding ${sub} session ${ses} to MRIQC group files
 
 echo ~~~~~~~~~~~~~
+echo ~~~~ Filter MRIQC columns ~~~~~~
+echo ~~~~~~~~~~~~~
+
+echo Rewriting MRIQC_filtered_columns.csv to add new input
+
+python ${SCRIPTS_DIR}/utilities/parse_mriqc_cols.py ${BIDS_dir} 1
+
+echo Rewrote MRIQC_filtered_columns.csv to add new input
+
+echo ~~~~~~~~~~~~~
 echo ~~~~ Freesurfer with hippocampal subfields, selected T1 ~~~~~~
 echo ~~~~~~~~~~~~~
 

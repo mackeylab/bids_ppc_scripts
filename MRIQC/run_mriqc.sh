@@ -33,7 +33,7 @@ export SINGULARITYENV_TEMPLATEFLOW_HOME=/home/${user}/templateflow
 singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templateflow,${BIDS_folder}:/mnt ${tools_dir}/mriqc-0.15.1.simg \
 /mnt/ /mnt/derivatives/mriqc_fd_${threshold}_mm \
 participant \
--w /tmp \
+-w $TMPDIR \
 --participant_label ${subject} \
 --session-id ${ses} \
 --fd_thres ${threshold} \
