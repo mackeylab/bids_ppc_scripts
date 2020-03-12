@@ -18,14 +18,13 @@ Check the MRI protocol notes ([here](https://docs.google.com/spreadsheets/d/15D3
 ## Second script
 The second chunk is run by `new_subj_second` script. This does the below:
 - Run [MRIQC](https://mriqc.readthedocs.io/en/stable/) on that subject.
-- Re-run MRIQC group command to add the new subject to the group MRIQC tsv files.
-- Run cross-sectional Freesurfer on that subject’s chosen T1, including hippocampal subfields. The T1 used is documented on the `CBPD_Scanning_Data` Google sheet. Each timepoint has a separate Freesurfer `SUBJECTS_DIR` (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/freesurfer)).
+- Re-run MRIQC group command to add the new subject to the group MRIQC file.
+- Pull only a subset of the columns of MRIQC IQMs into the `MRIQC_Filtered_Columns.csv`, used to update the _CBPD_Scanning_Data_ Google sheet.
+- Run cross-sectional Freesurfer on that subject’s chosen T1, including hippocampal subfields. The T1 used is documented on the _CBPD_Scanning_Data_ Google sheet. Each timepoint has a separate Freesurfer `SUBJECTS_DIR` (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/freesurfer)).
 - Run cross-sectional Freesurfer on any experimental T1 sequences. Each experimental sequence has a separate Freesurfer `SUBJECTS_DIR`.
 - When Freesurfer is done, run fMRIprep specifically *on this session*, which will then run with precomputed session-specific Freesurfer inputs. (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/fmriprep)).
 
 Then, someone should put their eyes on fMRIprep `.html` files for the subject, and copy MRIQC outputs (including # of resting-state vols kept) into CBPD Scanning Data file.
-
-There will also be a script to pull only a subset of the columns of MRIQC IQMs and aggregate them into a file to update the `CBPD_Scanning_Data` Google sheet with.
 
 **Note**: Here we treat longitudinal timepoints as separate subjects for Freesurfer and fMRIprep, given that we might expect significant anatomical change between timepoints. Longitudinal Freesurfer pipelines will be run separately, as they are not being used for functional preprocessing (per APM 03/2020).
 
@@ -58,7 +57,7 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 - Removing extra TRs for sleeping participants
 - Fixing conflicting `StudyInstanceUID` (for re-registered participants)
 - Fixing protocol names of wrongly-named dicom headers
-- Pulling a subset of MRIQC metrics
+- Pulling a subset of MRIQC image quality metrics
 
 ## Using the data
 Please read the `README` and `CHANGES` at the top-level of the BIDS dataset!
