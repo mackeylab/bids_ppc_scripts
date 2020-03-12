@@ -33,18 +33,19 @@ There will also be a script to pull only a subset of the columns of MRIQC IQMs a
 
 Most scripts pull Singularity containers from their location in `/data/picsl/mackey_group/tools`, but you do need a few utilities accessible from your path. I recommend installing them all into a Conda environment (maybe your base environment).
 
-- A *current* version of dcm2niix :
-	`conda install -c conda-forge dcm2niix`   
-	Do not use the one in `/data/picsl/mackey_group/BPD/envs/bpd_py`! You may need to remove that from your path.
 - Singularity accessible from your path :
 	```
 	#add to your ~/.bash_profile
 	SINGULARITY_PATH=/share/apps/singularity/2.5.1/bin
 	PATH=${SINGULARITY_PATH}:${PATH}
 	```
-- Python packages in your Conda environment: `sys,json,bisect,glob,os,pybids,dateutil`
+- Python packages in your Conda environment: `python-dateutil, dcm2niix`
+	You need a *current* version of dcm2niix, do not use the one in `/data/picsl/mackey_group/BPD/envs/bpd_py`! You may need to remove that from your path.
 	```
-	  conda install sys,json,bisect,glob,os,dateutil
+	  conda create -n <env-name> python=3.7
+	  source activate <env-name>
+	  conda config --append channels conda-forge
+	  conda install python-dateutil dcm2niix
 	  pip install pybids
 	```
 - Freesurfer :
@@ -60,4 +61,4 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 - Pulling a subset of MRIQC metrics
 
 ## Using the data
-Read the `README` and `CHANGES` at the top-level of the BIDS dataset!
+Please read the `README` and `CHANGES` at the top-level of the BIDS dataset!
