@@ -42,14 +42,14 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 	SINGULARITY_PATH=/share/apps/singularity/2.5.1/bin
 	PATH=${SINGULARITY_PATH}:${PATH}
 	```
-- Python packages : `sys,json,bisect,glob,os,pybids,dateutil`
+- Python packages in your Conda environment: `sys,json,bisect,glob,os,pybids,dateutil`
 	```
 	  conda install sys,json,bisect,glob,os,dateutil
 	  pip install pybids
 	```
 - Freesurfer :
-	Use the 6.0.0-make-fix version if you're going to be brain-editing. You will need to add this to your `.bash_profile` or `.bashrc`, or modify the path in `new_subject_second.sh`.
-	More information is [here](https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg55648.html).
+	Use the 6.0.0-make-fix version if you're going to be brain-editing. You will need to add this to your `.bash_profile` or `.bashrc`.
+	More information on the `make-fix` version is [here](https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg55648.html).
 
 ## Utilities
 - Copying over dicoms from rico, detecting which have changed in the last four days
@@ -57,6 +57,7 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 - Removing extra TRs for sleeping participants
 - Fixing conflicting `StudyInstanceUID` (for re-registered participants)
 - Fixing protocol names of wrongly-named dicom headers
+- Pulling a subset of MRIQC metrics
 
 ## Using the data
 Read the `README` and `CHANGES` at the top-level of the BIDS dataset!
