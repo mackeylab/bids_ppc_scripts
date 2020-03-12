@@ -29,11 +29,9 @@ There will also be a script to pull only a subset of the columns of MRIQC IQMs a
 
 **Note**: Here we treat longitudinal timepoints as separate subjects for Freesurfer and fMRIprep, given that we might expect significant anatomical change between timepoints. Longitudinal Freesurfer pipelines will be run separately, as they are not being used for functional preprocessing (per APM 03/2020).
 
-There is a new feature in fMRIprep to select which data to run based on a filter constructed in `pybids`. We are able to run cross-sectional Freesurfer within fMRIprep using the `--bids-filter-file` flag.
-
 ## Requirements
 
-Most scripts pull Singularity containers from their location in `/data/picsl/mackey_group/tools`, but you do need a few utilities accessible from your path. I recommend installing them all into a Conda environment.
+Most scripts pull Singularity containers from their location in `/data/picsl/mackey_group/tools`, but you do need a few utilities accessible from your path. I recommend installing them all into a Conda environment (maybe your base environment).
 
 - A *current* version of dcm2niix :
 	`conda install -c conda-forge dcm2niix`   
