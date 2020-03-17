@@ -2,8 +2,7 @@
 #run from your local computer with the hard drive plugged in, will need to enter password each time
 set -euo pipefail
 
-declare -a subs=(CBPD0095_2
-CBPD0096_2)
+declare -a subs=(CBPD0162_2)
 
 for i in "${subs[@]}"
 do

@@ -28,7 +28,7 @@ singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templatef
 --skull-strip-template MNIPediatricAsym:res-1:cohort-2 \
 --output-spaces MNI152NLin6Asym T1w MNIPediatricAsym:res-1:cohort-2 \
 --ignore sbref \
--w $TMPDIR \
+-w /mnt/derivatives/fmriprep_wd \
 
 #--fs-subjects_dir #set this to different timepoints to run subjects as different people!
 #ignore sbref in newer sequences since we didn't used to save it.

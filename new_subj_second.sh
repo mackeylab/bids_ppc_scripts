@@ -6,6 +6,11 @@
 #$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
 #$ -q himem.q,all.q,basic.q,gpu.q
 
+#Set Python environment if you have one
+if [ `whoami` = CBLuser ]; then
+	source activate bids_ppc
+fi
+
 set -euo pipefail
 
 if [ $# -eq 0 ]; then
