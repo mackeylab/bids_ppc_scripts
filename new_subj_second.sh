@@ -99,7 +99,7 @@ fi
 echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}
 
 echo ~~~~~~~~~~~~~
-echo ~~~~ Freesurfer on experimental T1s (all timepoints) ~~~~~~
+echo ~~~~ Freesurfer on experimental T1s all timepoints ~~~~~~
 echo ~~~~~~~~~~~~~
 
 export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_acc42/
