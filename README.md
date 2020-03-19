@@ -41,7 +41,7 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 - Freesurfer :
 	Use the 6.0.0-make-fix version if you're going to be brain-editing. You will need to add this to your `.bash_profile` or `.bashrc`. Check with `echo $FREESURFER_HOME`.
 	More information on the `make-fix` version is [here](https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg55648.html).
-	- Python packages in your Conda environment: `python-dateutil, dcm2niix, pandas`  
+- Python packages in your Conda environment: `python-dateutil, dcm2niix, pandas`  
 	You need a *current* version of dcm2niix, do not use the one in `/data/picsl/mackey_group/BPD/envs/bpd_py`! You may need to remove that from your path.
 	```
 	  conda create -n <env-name> python=3.7
