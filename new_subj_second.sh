@@ -16,7 +16,7 @@ set -euo pipefail
 if [ $# -eq 0 ]; then
 echo "USAGE: qsub new_subj_second.sh <full_path_to_BIDS_input_dir> <sub_id> <ses> <run of T1 for Freesurfer>
 
-Example: new_subj_second.sh /data/picsl/my_bids_dir CBPDxxx xxx run-02
+Example: new_subj_second.sh /data/picsl/my_bids_dir CBPDxxx 01 run-02
 This runs MRIQC on this subject, and adds their quality metrics to the MRIQC group output.
 Then, it runs Freesurfer using the second MPRAGE of CBPDxxxx's first session,
 including hippocampal subfields. Finally, it start fMRIprep running,
@@ -37,7 +37,7 @@ echo ~~~~~~~~~~~~~
 
 echo Running MRIQC with 1 mm FD threshold for ${sub} session ${ses}
 
-if [ -d ${BIDS_dir}/derivatives/mriqc_fd_1_mm/sub-${sub}/ses-${ses} ]; then
+if [ -e ${BIDS_dir}/derivatives/mriqc_fd_1_mm/sub-${sub}_ses-${ses}_run-01_T1w.html ]; then
   echo 'MRIQC already run with 1 mm threshold for' ${sub} 'session' ${ses}
 else
   bash ${SCRIPTS_DIR}/MRIQC/run_mriqc.sh 1 ${sub} ${ses} ${BIDS_dir}
@@ -142,9 +142,11 @@ echo ~~~~~~~~~~~~~
 #we may be able to run Freesurfer cross-sectionally within fmriprep by using --bids-filter-file
 export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer
 echo Running fMRIprep for ${sub} session ${ses}
-
-bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v20.0.2.sh ${sub} ${ses} ${BIDS_dir}
-
+if [ -e ${BIDS_dir}/derivatives/fmriprep_t${ses:1}/fmriprep/sub-${sub}.html ]; then
+	echo 'fMRIprep is already run for sub' ${sub}
+else
+	bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v20.0.2.sh ${sub} ${ses} ${BIDS_dir}
+fi
 echo Finished running fMRIprep for ${sub} session ${ses}
 
 echo ~~~~~~~~~~~~~
