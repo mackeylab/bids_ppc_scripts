@@ -84,10 +84,10 @@ elif [ ${ses} == 03 ]; then
   fs_sub=${sub}_3
   export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_t3
 fi
-if [ -e ${SUBJECTS_DIR}/sub-${sub}/scripts/recon-all.done ]; then
+if grep -q RUNTIME_HOURS ${SUBJECTS_DIR}/sub-${sub}/scripts/recon-all.done; then
   echo 'Freesurfer is already run for' ${sub} session ${ses}
 elif [ -e /data/picsl/mackey_group/BPD/surfaces/${fs_sub}/scripts/recon-all.done ]; then
-  echo 'Freesurfer surfaces are in /BPD/surfaces/ but not in the BIDS directory you specified' for ${sub} session ${ses}
+  echo 'Error, Freesurfer surfaces are in /BPD/surfaces/ but not in the BIDS directory you specified' for ${sub} session ${ses}
   echo 'Please move them and rename them to begin with sub-'
   break
 else
@@ -106,13 +106,13 @@ export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_acc42/
 if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc42*.nii.gz ]; then
   echo 'There is a CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses}
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc42*.nii.gz
-  if [ ! -d ${SUBJECTS_DIR}/sub-${fs_sub}/ ]; then
-  echo 'Running recon-all for CSMPRAGE_1mm_acc42'
-  echo $freesurfer_input
-  recon-all -all -subjid sub-${fs_sub} -i ${freesurfer_input}
-  echo 'Ran recon-all for CSMPRAGE_1mm_acc42'
-  else
-    echo 'Freesurfer was already started for CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses}
+  if grep -q RUNTIME_HOURS ${SUBJECTS_DIR}/sub-${fs_sub}/scripts/recon-all.done; then
+		echo 'Freesurfer was already run for CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses}
+	else
+		echo 'Running recon-all for CSMPRAGE_1mm_acc42'
+		echo $freesurfer_input
+		recon-all -all -subjid sub-${fs_sub} -i ${freesurfer_input}
+		echo 'Ran recon-all for CSMPRAGE_1mm_acc42'
   fi
 else
   echo 'No CSMPRAGE_1mm_acc42 for' ${sub} 'session' ${ses} 'exists'
@@ -122,13 +122,13 @@ export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_acc5/
 if [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc5*.nii.gz ]; then
   echo 'There is a CSMPRAGE_1mm_acc5 for ' ${sub} 'session' ${ses}
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-csacc5*.nii.gz
-  if [ ! -d ${SUBJECTS_DIR}/sub-${fs_sub}/ ]; then
-  echo 'Running recon-all for CSMPRAGE_1mm_acc5'
-  echo $freesurfer_input
-  recon-all -all -subjid sub-${fs_sub} -i ${freesurfer_input}
-  echo 'Ran recon-all for CSMPRAGE_1mm_acc5'
+	if grep -q RUNTIME_HOURS ${SUBJECTS_DIR}/sub-${fs_sub}/scripts/recon-all.done; then
+		echo 'Freesurfer was already run for CSMPRAGE_1mm_acc5 for' ${sub} 'session' ${ses}
   else
-    echo 'Freesurfer was already started for CSMPRAGE_1mm_acc5 for' ${sub} 'session' ${ses}
+		echo 'Running recon-all for CSMPRAGE_1mm_acc5'
+		echo $freesurfer_input
+		recon-all -all -subjid sub-${fs_sub} -i ${freesurfer_input}
+		echo 'Ran recon-all for CSMPRAGE_1mm_acc5'
   fi
 else
   echo 'No CSMPRAGE_1mm_acc5 for' ${sub} 'session' ${ses} 'exists'
