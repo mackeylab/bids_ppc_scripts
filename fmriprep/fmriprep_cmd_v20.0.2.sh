@@ -30,10 +30,10 @@ singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templatef
 --skull-strip-template MNIPediatricAsym:res-1:cohort-2 \
 --output-spaces MNI152NLin6Asym T1w MNIPediatricAsym:res-1:cohort-2 \
 --ignore sbref \
--w /tmp/fmriprep_wd \
+-w $TMPDIR \
 
 #--fs-subjects_dir #set this to different timepoints to run subjects as different people!
-#ignore sbref in newer sequences since we didn't used to save it.
+#ignore sbref in newer sequences since we didn't used to save it before.
 # we are doing slice-timing correction here.
 #fsaverage:den-10k is fsaverage5
 #--output-space MNI152NLin6Asym T1w fsnative fsaverage:den-10k \
