@@ -2,7 +2,7 @@
 #$ -cwd
 #$ -V
 #$ -j y
-#$ -l h_vmem=10.1G,s_vmem=10.0G
+#$ -l h_vmem=15.1G,s_vmem=15.0G
 #$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
 #$ -q himem.q,all.q,basic.q,gpu.q
 

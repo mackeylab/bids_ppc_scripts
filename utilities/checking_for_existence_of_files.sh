@@ -1,9 +1,9 @@
 #Checking for completeness in CBPD_bids
 #run in BPD/dicoms directory
-for sub in `find . -maxdepth 1 -mindepth 1 -type d -name "CBPD*" | sed -e 's|.*/||'`
+for sub in `find . -maxdepth 2 -mindepth 1 -type d -name "ses-02" | sed -e 's|./||' | sed -e 's|/ses-02||'`
 do
 echo $sub
-if [ -d /data/picsl/mackey_group/CBPD/CBPD_bids/sub-${sub} ]; then
+if [ -f /data/picsl/mackey_group/CBPD/CBPD_bids/derivatives/mriqc_fd_1_mm/${sub}_ses-02_run-01_T1w.html ]; then
   echo 'it exists'
   else
   echo $sub 'does not exist'

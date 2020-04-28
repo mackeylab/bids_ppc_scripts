@@ -13,15 +13,15 @@ BIDS_folder=${3}
 # BIDS_folder=/data/picsl/mackey_group/CBPD/CBPD_bids/
 tools_dir=/data/picsl/mackey_group/tools/singularity
 output_dir=${BIDS_folder}/derivatives/
-wd_dir=$( echo ${BIDS_folder}| cut -d "/" -f -5) #remove this after testing
-echo ${wd_dir}
+#wd_dir=$( echo ${BIDS_folder}| cut -d "/" -f -5) #remove this after testing
+#echo ${wd_dir}
 echo ${sub}
 echo ${BIDS_folder}
 user=`whoami` #so that templateflow can go into the home dir of whoever is running.
 
 # ${tools_dir}/fmriprep-1.2.6-1.simg use this when running ABCD
 export SINGULARITYENV_TEMPLATEFLOW_HOME=/home/${user}/templateflow
-singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templateflow,${BIDS_folder}:/mnt,${wd_dir}:/tmp ${tools_dir}/fmriprep-20-0-2.simg \
+singularity run --cleanenv -B /home/${user}/templateflow:/home/${user}/templateflow,${BIDS_folder}:/mnt ${tools_dir}/fmriprep-20-0-2.simg \
 /mnt/ /mnt/derivatives/fmriprep_t${ses:1} participant \
 --participant-label ${sub} \
 --fs-license-file $HOME/license.txt \
