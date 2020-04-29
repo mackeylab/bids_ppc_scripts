@@ -5,6 +5,11 @@
         "acquisition": null,
         "suffix": "T1w"
     },
+    "t2w": {
+        "datatype": "anat",
+        "session": "02",
+        "suffix": "T2w"
+    },
     "bold": {
         "datatype": "func",
         "session": "03",
