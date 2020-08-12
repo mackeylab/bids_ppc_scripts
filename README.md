@@ -45,7 +45,7 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 	You need a *current* version of dcm2niix, do not use the one in `/data/picsl/mackey_group/BPD/envs/bpd_py`! You may need to remove that from your path.
 	```
 	  conda create -n <env-name> python=3.7
-	  source activate <env-name>
+	  conda activate <env-name>
 	  conda config --append channels conda-forge
 	  conda install python-dateutil dcm2niix pandas
 	  pip install pybids
