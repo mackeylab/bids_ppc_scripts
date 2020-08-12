@@ -29,7 +29,7 @@ BIDS_dir=$(readlink -f $1)
 sub=${2} #CBPDxxxx
 ses=${3} #01,02,03
 T1=${4}
-SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts
+SCRIPTS_DIR=/cbica/projects/cbpd_main_data/code/bids_ppc_scripts
 
 echo ~~~~~~~~~~~~~
 echo ~~~~ Run MRIQC ~~~~~~
@@ -86,14 +86,14 @@ elif [ ${ses} == 03 ]; then
 fi
 if grep -q RUNTIME_HOURS ${SUBJECTS_DIR}/sub-${sub}/scripts/recon-all.done; then
   echo 'Freesurfer is already run for' ${sub} session ${ses}
-elif [ -e /data/picsl/mackey_group/BPD/surfaces/${fs_sub}/scripts/recon-all.done ]; then
-  echo 'Error, Freesurfer surfaces are in /BPD/surfaces/ but not in the BIDS directory you specified' for ${sub} session ${ses}
-  echo 'Please move them and rename them to begin with sub-'
-  break
+# elif [ -e /data/picsl/mackey_group/BPD/surfaces/${fs_sub}/scripts/recon-all.done ]; then
+#   echo 'Error, Freesurfer surfaces are in /BPD/surfaces/ but not in the BIDS directory you specified' for ${sub} session ${ses}
+#   echo 'Please move them and rename them to begin with sub-'
+#   break
 else
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_${T1}_T1w.nii.gz
   echo 'Freesurfer input is' ${freesurfer_input}
-  recon-all -all -subjid sub-${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
+  echo recon-all -all -subjid sub-${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
 fi
 
 echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}

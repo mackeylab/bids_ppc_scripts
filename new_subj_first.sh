@@ -15,7 +15,7 @@ set -euo pipefail
 if [ $# -eq 0 ]; then
 echo "USAGE: qsub new_subj_first.sh <sub_id> <BIDS_output_dir>
 
-Example: new_subj_first.sh CBPDxxx[_x] /data/picsl/mackey_group/BIDS/
+Example: new_subj_first.sh CBPDxxx[_x] /cbica/projects/cbpd_main_data/CBPD_bids
 This runs heudiconv, fixes the blip-up blip-down/TOPUP sequences, and assigns the IntendedFor field to the fieldmaps.
 After this is run, check for any runs that need to be truncated or .bidsignored, and any sleep during resting-state.
 "
@@ -35,7 +35,7 @@ echo ~~~~~~~~~~~~~
 
 echo Doing Heudiconv conversion for ${sub} session ${ses}
 echo BIDS directory is ${BIDS_dir}
-SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts
+SCRIPTS_DIR=/cbica/projects/cbpd_main_data/code/bids_ppc_scripts
 
 sleep .5
 if [[ $ses == 02 ]]; then #the ID is longer than x digits and ends in _2, it's a longitudinal subject, then convert
