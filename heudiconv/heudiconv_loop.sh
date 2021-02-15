@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # obtain scan and session labels
-scans=/data/picsl/mackey_group/BPD/dicoms
-SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts/heudiconv
-BIDS_dir=/data/picsl/mackey_group/CBPD/CBPD_bids_2
+scans=/cbica/projects/cbpd_main_data/dicoms
+SCRIPTS_DIR=/cbica/projects/cbpd_main_data/bids_ppc_scripts/heudiconv
+BIDS_dir=/cbica/projects/cbpd_main_data/CBPD_bids
 
 #declare -a subs=(CBPD0195 CBPD0002_2 CBPD0037_2 CBPD0039_2 CBPD0085_2 CBPD0048_3 CBPD0074_3 CBPD0188)
 

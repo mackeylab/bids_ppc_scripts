@@ -2,11 +2,11 @@
 #$ -cwd
 #$ -V
 #$ -j y
-#$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
+#$ -o /cbica/projects/cbpd_main_data/output/qsub_output
 #$ -q himem.q,all.q,basic.q,gpu.q
 
 #Set Python environment if you have one
-if [ `whoami` = CBLuser ]; then
+if [ `whoami` = cbpdmaindata ]; then
 	source activate bids_ppc
 fi
 
