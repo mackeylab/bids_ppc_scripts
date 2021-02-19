@@ -2,7 +2,6 @@
 #$ -j y
 #$ -l h_vmem=19.1G,s_vmem=19.0G
 #$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
-#$ -q himem.q,all.q,basic.q,gpu.q
 
 unset PYTHONPATH;
 sub=${1} #CBPDxxxx

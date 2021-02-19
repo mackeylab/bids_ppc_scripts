@@ -3,21 +3,20 @@
 #$ -V
 #$ -j y
 #$ -l h_vmem=10.1G,s_vmem=10.0G
-#$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
-#$ -q himem.q,all.q,basic.q,gpu.q
+#$ -o /cbica/projects/cbpd_main_data/qsub_output
 
 set -euo pipefail
 if [ $# -eq 0 ]; then
 echo "USAGE: aggregate_group_mriqc.sh <fd_threshold> <bids_dir>
 
-Example: run_mriqc.sh 2 /data/picsl/my_bids_dir
+Example: run_mriqc.sh 2 /cbica/projects/cbpd_main_data/CBPD_bids
 This aggregates group output for the MRIQC directory above for all participants
 who have been run through MRIQC with a 2 mm FD threshold.
 "
 exit
 fi
 
-MACKEY_HOME=/data/picsl/mackey_group/
+MACKEY_HOME=/cbica/projects/cbpd_main_data
 tools_dir=${MACKEY_HOME}/tools/singularity
 threshold=${1}
 BIDS_folder=${2}
@@ -31,10 +30,10 @@ fi
 
 
 unset PYTHONPATH;
-singularity run --cleanenv -B ${BIDS_folder}:/mnt ${tools_dir}/mriqc-0.15.1.simg \
-/mnt/ /mnt/derivatives/mriqc_fd_${threshold}_mm \
+singularity run --cleanenv -B ${SBIA_TMPDIR}:/tmp ${tools_dir}/mriqc-0.15.1.simg \
+${BIDS_folder}/ ${output_dir} \
 group \
--w ${TMP} \
+-w ${SBIA_TMPDIR} \
 
 
 #don't have the working dir be a mounted directory or you'll get errors in the logs about busy resources

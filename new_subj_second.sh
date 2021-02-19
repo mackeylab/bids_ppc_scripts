@@ -3,12 +3,11 @@
 #$ -V
 #$ -j y
 #$ -l h_vmem=19.1G,s_vmem=19.0G
-#$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
-#$ -q himem.q,all.q,basic.q,gpu.q
+#$ -o /cbica/projects/cbpd_main_data/qsub_output
 
 #Set Python environment if you have one
-if [ `whoami` = CBLuser ]; then
-	source activate bids_ppc
+if [ `whoami` = cbpdmaindata ]; then
+	conda activate bids_ppc
 fi
 
 set -euo pipefail
@@ -16,7 +15,7 @@ set -euo pipefail
 if [ $# -eq 0 ]; then
 echo "USAGE: qsub new_subj_second.sh <full_path_to_BIDS_input_dir> <sub_id> <ses> <run of T1 for Freesurfer>
 
-Example: new_subj_second.sh /data/picsl/my_bids_dir CBPDxxx 01 run-02
+Example: new_subj_second.sh /cbica/projects/cbpd_main_data/my_bids_dir CBPDxxx 01 run-02
 This runs MRIQC on this subject, and adds their quality metrics to the MRIQC group output.
 Then, it runs Freesurfer using the second MPRAGE of CBPDxxxx's first session,
 including hippocampal subfields. Finally, it start fMRIprep running,
@@ -25,7 +24,7 @@ which should detect precomputed freesurfer inputs.
 exit
 fi
 
-BIDS_dir=$(readlink -f $1)
+BIDS_dir=$(cd ${2}; pwd)
 sub=${2} #CBPDxxxx
 ses=${3} #01,02,03
 T1=${4}
@@ -73,7 +72,7 @@ echo ~~~~~~~~~~~~~
 #If not, run it!
 echo Running Freesurfer with hipp subfields for ${sub} session ${ses}
 
-export FREESURFER_HOME=/share/apps/freesurfer/6.0.0-make-fix/
+export FREESURFER_HOME=/cbica/software/external/freesurfer/centos7/6.0.0/
 if [ ${ses} == 01 ]; then
   fs_sub=${sub}
   export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer_t1

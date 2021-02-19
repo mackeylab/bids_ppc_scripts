@@ -3,22 +3,21 @@
 #$ -V
 #$ -j y
 #$ -l h_vmem=15.1G,s_vmem=15.0G
-#$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
-#$ -q himem.q,all.q,basic.q,gpu.q
+#$ -o /cbica/projects/cbpd_main_data/qsub_output
 
 set -euo pipefail
 if [ $# -eq 0 ]; then
 echo "USAGE: run_mriqc.sh <fd_threshold> <subj_id> <session> <full_bids_dir>
 
-Example: run_mriqc.sh 1 CBPDxxxx 02 /data/picsl/my_bids_dir
+Example: run_mriqc.sh 1 CBPDxxxx 02 /cbica/projects/cbpd_main_data/my_bids_dir
 This runs MRIQC with FD threshold of 1 mm on session 02 of subject CBPDxxxx,
 in the BIDS input directory, and outputs group results
-into the /data/picsl/my_bids_dir/derivatives/mriqc_fd_<threshold>_mm
+into the /cbica/projects/cbpd_main_data/my_bids_dir/derivatives/mriqc_fd_<threshold>_mm
 "
 exit
 fi
 echo ${1} ${2} ${3} ${4}
-MACKEY_HOME=/data/picsl/mackey_group/
+MACKEY_HOME=/cbica/projects/cbpd_main_data/
 tools_dir=${MACKEY_HOME}/tools/singularity
 threshold=${1}
 subject=${2}

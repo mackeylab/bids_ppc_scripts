@@ -1,12 +1,11 @@
 #For all already processed subjects
 set -euo pipefail
 #$ -j y
-#$ -o /data/picsl/mackey_group/CBPD/output/qsub_output
-#$ -q himem.q,all.q,basic.q,gpu.q
+#$ -o /cbica/projects/cbpd_main_data/qsub_output
 
-SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts/assign_fieldmaps
+SCRIPTS_DIR=/cbica/projects/cbpd_main_data/bids_ppc_scripts/assign_fieldmaps
 
-BIDS_DIR=/data/picsl/mackey_group/CBPD/CBPD_bids/ #need a trailing /
+BIDS_DIR=/cbica/projects/cbpd_main_data/CBPD_bids/ #need a trailing /
 
 cd $BIDS_DIR
 for subject in `find . -maxdepth 1 -mindepth 1 -type d -name "sub-*" | sed -e 's|.*/||'`

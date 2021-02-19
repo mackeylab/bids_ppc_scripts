@@ -2,9 +2,9 @@
 #run hipp subfields on everyone it hasn't been run on but who has baseline Freesurfer
 
 set -euo pipefail
-qsub_output=/data/picsl/mackey_group/CBPD/output/qsub_output
+qsub_output=/cbica/projects/cbpd_main_data/qsub_output
 
-export SUBJECTS_DIR=/data/picsl/mackey_group/CBPD/CBPD_bids/derivatives/freesurfer
+export SUBJECTS_DIR=/cbica/projects/cbpd_main_data/CBPD_bids/derivatives/freesurfer
 for sub in `find ${SUBJECTS_DIR} -maxdepth 1 -mindepth 1 -type d -name "CBPD*" -exec basename {} \;`;
 do
   echo ${sub}

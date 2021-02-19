@@ -13,5 +13,5 @@ export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer/
 for sub in "${array[@]}"
 do
   freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_${T1}_T1w.nii.gz
-  qsub -j y -o /data/picsl/mackey_group/CBPD/output/qsub_output -q himem.q,all.q,basic.q,gpu.q "recon-all -all -subjid ${sub} -i ${freesurfer_input} -hippocampal-subfields-T1"
+  qsub -j y -o /cbica/projects/cbpd_main_data/qsub_output -q himem.q,all.q,basic.q,gpu.q "recon-all -all -subjid ${sub} -i ${freesurfer_input} -hippocampal-subfields-T1"
 done

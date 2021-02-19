@@ -30,19 +30,17 @@ Then, someone should put their eyes on fMRIprep `.html` files for the subject, a
 
 ## Requirements
 
-Most scripts pull Singularity containers from their location in `/data/picsl/mackey_group/tools`, but you do need a few utilities accessible from your path. I recommend installing them all into a Conda environment (maybe your base environment).
+Most scripts pull Singularity containers from their location in `/cbica/projects/cbpd_main_data/tools`, but you do need a few utilities accessible from your path. I recommend installing them all into a Conda environment (maybe your base environment).
 
-- Singularity accessible from your path :
+- Check that Singularity is accessible from your path (and if not, add it):
 	```
-	#add to your ~/.bash_profile
-	SINGULARITY_PATH=/share/apps/singularity/2.5.1/bin
-	PATH=${SINGULARITY_PATH}:${PATH}
+	which singularity
 	```
 - Freesurfer :
 	Use the 6.0.0-make-fix version if you're going to be brain-editing. You will need to add this to your `.bash_profile` or `.bashrc`. Check with `echo $FREESURFER_HOME`.
 	More information on the `make-fix` version is [here](https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg55648.html).
 - Python packages in your Conda environment: `python-dateutil, dcm2niix, pandas`  
-	You need a *current* version of dcm2niix, do not use the one in `/data/picsl/mackey_group/BPD/envs/bpd_py`! You may need to remove that from your path.
+	For CfN: You need a *current* version of dcm2niix, do not use the one in `/data/picsl/mackey_group/BPD/envs/bpd_py`! You may need to remove that from your path.
 	```
 	  conda create -n <env-name> python=3.7
 	  conda activate <env-name>
@@ -50,10 +48,10 @@ Most scripts pull Singularity containers from their location in `/data/picsl/mac
 	  conda install python-dateutil dcm2niix pandas
 	  pip install pybids
 	```
-	If you're using these scripts and you didn't install these packages into your base environment, change lines 8-10 of `new_subject_first.sh` and `new_subject_second.sh` to reflect activating _your_ Conda environment.
+	If you're using these scripts and you didn't install these packages into your base environment, change lines 8-10 of `new_subject_first.sh` and `new_subject_second.sh` to reflect your username and activating _your_ Conda environment.
 
 ## Utilities
-- Copying over dicoms from rico, detecting which have changed in the last four days
+- Copying over dicoms from Rico (computer at SC3T), detecting which have changed in the last four days
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
 - Removing extra TRs for sleeping participants
 - Fixing conflicting `StudyInstanceUID` (for re-registered participants)

@@ -3,18 +3,18 @@ set -euo pipefail
 if [ $# -eq 0 ]; then
 echo "USAGE: loop_for_mriqc.sh <fd_threshold> <full_BIDS_input_dir>
 
-Example: loop_for_mriqc.sh 1 /data/picsl/mackey_group/CBPD/CBPD_bids /derivatives/mriqc_fd_1_mm
+Example: loop_for_mriqc.sh 1 /cbica/projects/cbpd_main_data/CBPD_bids
 This runs MRIQC with FD threshold 1 mm on all subjects and all sessions
 in the BIDS input directory, by submitting separate jobs for each subject,
 and outputs group results into
-/data/picsl/mackey_group/<BIDS_input_dir>/derivatives/mriqc_fd_<threshold>_mm
+/cbica/projects/cbpd_main_data/<BIDS_input_dir>/derivatives/mriqc_fd_<threshold>_mm
 "
 exit
 fi
 
 threshold=${1}
 BIDS_folder=${2}
-SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts
+SCRIPTS_DIR=/cbica/projects/cbpd_main_data/code/bids_ppc_scripts
 
 for sub in `find ${BIDS_folder} -maxdepth 1 -mindepth 1 -type d -name "sub-*" | sed -e 's|.*/||'`
 do

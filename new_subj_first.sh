@@ -2,12 +2,13 @@
 #$ -cwd
 #$ -V
 #$ -j y
-#$ -o /cbica/projects/cbpd_main_data/output/qsub_output
-#$ -q himem.q,all.q,basic.q,gpu.q
+#$ -o /cbica/projects/cbpd_main_data/qsub_output
 
 #Set Python environment if you have one
+echo `whoami`
 if [ `whoami` = cbpdmaindata ]; then
-	source activate bids_ppc
+	source ~/tools/miniconda3/etc/profile.d/conda.sh
+	conda activate bids_ppc
 fi
 
 set -euo pipefail
@@ -18,6 +19,8 @@ echo "USAGE: qsub new_subj_first.sh <sub_id> <BIDS_output_dir>
 Example: new_subj_first.sh CBPDxxx[_x] /cbica/projects/cbpd_main_data/CBPD_bids
 This runs heudiconv, fixes the blip-up blip-down/TOPUP sequences, and assigns the IntendedFor field to the fieldmaps.
 After this is run, check for any runs that need to be truncated or .bidsignored, and any sleep during resting-state.
+
+On CUBIC, run this as the project user (cbpdmaindata).
 "
 exit
 fi
@@ -27,7 +30,7 @@ ses=0${1:9} #change timepoint to 01,02,03
 if [[ ${ses} == 0 ]]; then #no suffix is timepoint 01
   ses=01
 fi
-BIDS_dir=$(readlink -f $2) #resolve relative path, make it absolute
+BIDS_dir=$(cd ${2}; pwd) #resolve relative path, make it absolute
 
 echo ~~~~~~~~~~~~~
 echo ~~~~ Convert using Heudiconv ~~~~~~
