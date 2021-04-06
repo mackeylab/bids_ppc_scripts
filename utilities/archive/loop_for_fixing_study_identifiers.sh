@@ -1,6 +1,6 @@
 # #/bin/bash
 
-## loop for fixing study identifiers when heudiconv breaks because of conflicting study identifiers###
+## DEPRECATED loop for fixing study identifiers when heudiconv breaks because of conflicting study identifiers###
 ###############################
 SCRIPTS_DIR=/data/picsl/mackey_group/CBPD/bids_ppc_scripts/heudiconv/
 #list of subjs to fix

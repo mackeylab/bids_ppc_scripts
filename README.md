@@ -37,7 +37,11 @@ Most scripts pull Singularity containers from their location in `/cbica/projects
 	which singularity
 	```
 - Freesurfer :
-	Use the 6.0.0-make-fix version if you're going to be brain-editing. You will need to add this to your `.bash_profile` or `.bashrc`. Check with `echo $FREESURFER_HOME`.
+	Use the 6.0.0-make-fix version if you're going to be brain-editing. You will need to add this to your `.bashrc`. Add the two lines below to your `.bashrc`, and check with `echo $FREESURFER_HOME` once you've logged in.
+	```
+	module unload freesurfer/5.3.0
+	module load freesurfer/6.0.0
+	```
 	More information on the `make-fix` version is [here](https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg55648.html).
 - Python packages in your Conda environment: `python-dateutil, dcm2niix, pandas`  
 	For CfN: You need a *current* version of dcm2niix, do not use the one in `/data/picsl/mackey_group/BPD/envs/bpd_py`! You may need to remove that from your path.
@@ -46,6 +50,7 @@ Most scripts pull Singularity containers from their location in `/cbica/projects
 	  conda activate <env-name>
 	  conda config --append channels conda-forge
 	  conda install python-dateutil dcm2niix pandas
+		conda install -c conda-forge jq
 	  pip install pybids
 	```
 	If you're using these scripts and you didn't install these packages into your base environment, change lines 8-10 of `new_subject_first.sh` and `new_subject_second.sh` to reflect your username and activating _your_ Conda environment.
@@ -54,7 +59,7 @@ Most scripts pull Singularity containers from their location in `/cbica/projects
 - Copying over dicoms from Rico (computer at SC3T), detecting which have changed in the last four days
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
 - Removing extra TRs for sleeping participants
-- Fixing conflicting `StudyInstanceUID` (for re-registered participants)
+- Fixing error about `Conflicting study identifiers found` (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/utilities) for re-registered participants)
 - Fixing protocol names of wrongly-named dicom headers
 - Pulling a subset of MRIQC image quality metrics
 

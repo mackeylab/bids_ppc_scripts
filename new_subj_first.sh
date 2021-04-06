@@ -2,7 +2,9 @@
 #$ -cwd
 #$ -V
 #$ -j y
+#$ -l h_vmem=23.1G,s_vmem=23.0G
 #$ -o /cbica/projects/cbpd_main_data/qsub_output
+
 
 #Set Python environment if you have one
 echo `whoami`

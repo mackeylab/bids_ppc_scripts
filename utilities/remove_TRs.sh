@@ -17,7 +17,7 @@ ses=${2}
 scannum=${3}
 num=${4}
 
-data_dir=/data/picsl/mackey_group/CBPD/CBPD_bids
+data_dir=/cbica/projects/cbpd_main_data/CBPD_bids
 scan=${data_dir}/sub-${sub}/ses-${ses}/func/sub-${sub}_ses-${ses}_task-rest_run-${scannum}_bold.nii.gz
 
 chmod 750 ${scan}

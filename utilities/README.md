@@ -1,13 +1,13 @@
 
-__Fixing study identifiers__
+## Fixing study identifiers
 
-Applies if you get an error during dicom conversion about `Conflicting study identifiers found`. This typically occurs if a subject was registered twice, or taken out of the scanner and then put back in. Essentially, each time you register a subject, they get a new `StudyInstanceUID`, which messes up the conversion to nifti. If this occurs, run them through the `loop_for_fixing_study_identifiers.sh`.
+If you get an error during dicom conversion about `Conflicting study identifiers found`. This typically occurs if a subject was registered twice, or taken out of the scanner and then put back in. Essentially, each time you register a subject, they get a new `StudyInstanceUID`, which messes up the conversion to nifti.
 
-**See Github issues and draft fix for this [here](https://github.com/nipy/heudiconv/pull/359)**.
-Eventually we should be able to fix this by running using the flag `--grouping all` in heudiconv.
+**Edit: With a new heudiconv version, we should be able to fix this with heudiconv(see [here](https://github.com/nipy/heudiconv/pull/359))**.
+For subjects who have different `StudyInstanceUID`, we can run heudiconv using the flag `--grouping all` to assign all dicoms in a subject folder to that subject. UAT has not tested this but should just take a new heudiconv script for that subject.
 
 
-__Fixing protocol name__
+## Fixing protocol name
 
 Rewrites ProtocolName and SeriesDescription in the dicom header. Originally needed because when we first introduced the PIPER movie scan, we continued to use the "BOLD_resting1" protocol for a while - this makes it difficult to use the protocol name in heudiconv's heuristic file to differentiate between rest scans and PIPER movie scans.
 

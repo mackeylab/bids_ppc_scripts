@@ -19,4 +19,4 @@ subID=${1}
 dir=${2}
 echo $dir
 
-singularity run -B ${SBIA_TMPDIR}:/tmp --cleanenv /cbica/projects/cbpd_main_data/tools/singularity/heudiconv0.5.4.simg -d /cbica/projects/cbpd_main_data/dicoms/{subject}_3/*.dcm -o ${dir} -f /cbica/projects/cbpd_main_data/bids_ppc_scripts/heudiconv/heuristic.py -s ${subID} --ses 03 -c dcm2niix -b --minmeta;
+singularity run --cleanenv --env OPENBLAS_NUM_THREADS=4,OMP_NUM_THREADS=4 /cbica/projects/cbpd_main_data/tools/singularity/heudiconv0.5.4.simg -d /cbica/projects/cbpd_main_data/dicoms/{subject}_3/*.dcm -o ${dir} -f /cbica/projects/cbpd_main_data/code/bids_ppc_scripts/heudiconv/heuristic.py -s ${subID} --ses 03 -c dcm2niix -b --minmeta;
