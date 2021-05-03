@@ -1,2 +1,3 @@
 output/**
 **/__pycache__/**
+fmriprep/CBPD_Scanning_Data_MRI_Quality.csv
