@@ -19,7 +19,7 @@ SINGULARITY_TMPDIR=$CBICA_TMPDIR #make sure it mounts this as /tmp inside the co
 export SINGULARITY_TMPDIR
 echo $CBICA_TMPDIR
 export SINGULARITYENV_OPENBLAS_NUM_THREADS=8;export SINGULARITYENV_OMP_NUM_THREADS=8;
-singularity run --cleanenv ${tools_dir}/fmriprep-20-2-0.sif \
+singularity run --cleanenv -B ${SINGULARITY_TMPDIR}:/tmp ${tools_dir}/fmriprep-20-2-0.sif \
 ${BIDS_folder} ${BIDS_folder}/derivatives/fmriprep_t${ses:1} participant \
 --participant-label ${sub} \
 --fs-license-file $HOME/license.txt \
@@ -30,7 +30,7 @@ ${BIDS_folder} ${BIDS_folder}/derivatives/fmriprep_t${ses:1} participant \
 --ignore sbref \
 --verbose \
 --nthreads 8 \
--w /tmp/cbpdmaindata \
+-w /tmp \
 
 #--fs-subjects_dir #set this to different timepoints to run subjects as different people!
 #ignore sbref in newer sequences since we didn't used to save it before.

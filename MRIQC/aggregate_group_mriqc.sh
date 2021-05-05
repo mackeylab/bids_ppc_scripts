@@ -31,10 +31,10 @@ fi
 
 unset PYTHONPATH;
 SINGULARITY_TMPDIR=/scratch/cbpdmaindata; export SINGULARITY_TMPDIR #make sure it mounts this as /tmp inside the container
-singularity run --cleanenv ${tools_dir}/mriqc-0.15.1.simg \
+singularity run --cleanenv -B ${SINGULARITY_TMPDIR}:/tmp ${tools_dir}/mriqc-0.15.1.simg \
 ${BIDS_folder}/ ${output_dir} \
 group \
--w /tmp/cbpdmaindata/ \
+-w /tmp \
 
 
 #don't have the working dir be a mounted directory or you'll get errors in the logs about busy resources

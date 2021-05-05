@@ -29,6 +29,7 @@ do
   if [[ $sub =~ "_" ]]; then
     echo It is longitudinal
     ses=0$(echo $sub| cut -d'_' -f2)
+    sub=$(echo $sub| cut -d'_' -f1)
     echo $ses
   else
     echo It is not longitudinal

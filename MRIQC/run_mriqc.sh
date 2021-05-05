@@ -31,10 +31,10 @@ unset PYTHONPATH;
 #may need to limit openblas threads like for heudiconv!
 SINGULARITY_TMPDIR=/scratch/cbpdmaindata #make sure it mounts this as /tmp inside the container
 export SINGULARITY_TMPDIR
-singularity run --cleanenv ${tools_dir}/mriqc-0.15.1.simg \
+singularity run --cleanenv -B ${SINGULARITY_TMPDIR}:/tmp ${tools_dir}/mriqc-0.15.1.simg \
 ${BIDS_folder} ${output_dir} \
 participant \
--w /tmp/cbpdmaindata/ \
+-w /tmp \
 --participant_label ${subject} \
 --session-id ${ses} \
 --fd_thres ${threshold} \
