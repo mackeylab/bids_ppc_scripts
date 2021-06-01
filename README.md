@@ -57,6 +57,10 @@ Most scripts pull Singularity containers from their location in `/cbica/projects
 
 ## Utilities
 - Copying over dicoms from Rico (computer at SC3T), detecting which have changed in the last four days
+- Copying over dicoms from Flywheel; to do this you need the Flywheel Command-line Interface (CLI) in your `$PATH`. Run the line below:
+	```
+	echo "export PATH=\$PATH:/cbica/projects/cbpd_main_data/tools/flywheel/linux_amd64" >> ~/.bashrc
+	```
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
 - Removing extra TRs for sleeping participants
 - Fixing error about `Conflicting study identifiers found` (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/utilities) for re-registered participants)
