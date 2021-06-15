@@ -57,7 +57,7 @@ Most scripts pull Singularity containers from their location in `/cbica/projects
 
 ## Utilities
 - Copying over dicoms from Rico (computer at SC3T), detecting which have changed in the last four days
-- Copying over dicoms from Flywheel; to do this you need the Flywheel Command-line Interface (CLI) in your `$PATH`. Run the line below:
+- Copying over dicoms from Flywheel; to do this you need the Flywheel Command-line Interface (CLI) in your `$PATH`. Run the line below while logged in to your user account on CUBIC (this is already set up for the `cbpdmaindata` project user):
 	```
 	echo "export PATH=\$PATH:/cbica/projects/cbpd_main_data/tools/flywheel/linux_amd64" >> ~/.bashrc
 	```
