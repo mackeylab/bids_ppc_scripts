@@ -9,7 +9,7 @@ The first chunk is run by the `new_subj_first` script. This does the below:
 - Fix TOPUP fieldmaps for diffusion (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/fix_topup_sequences)).
 - Assign `IntendedFor` field to TOPUP fieldmaps (see [here](https://github.com/mackeylab/bids_ppc_scripts/blob/master/assign_fieldmaps)).
 
-Next, if a subject has fallen asleep or we need to discard some data, the BOLD niftis will be edited to reflect this after running the first script (i.e. if some number # of TRs are removed, for example, for sleeping), and subjects or runs that are bad or incomplete (total number of volumes < 130) will be documented in the CBPD Scanning Notes.
+Next, if a subject has fallen asleep or we need to discard some data, the BOLD niftis must be edited to reflect this after running the first script (i.e. if some number # of TRs are removed, for example, for sleeping), and subjects or runs that are bad or incomplete (total number of volumes < 130) will be documented in the CBPD Scanning Notes.
 
 **Note**: *Adding to the `.bidsignore` does not affect running of any downstream tools such as MRIQC, which will run on these subjects anyways. This simply tells the `bids-validator` to ignore these files when checking whether the folder is valid.*
 
@@ -57,6 +57,10 @@ Most scripts pull Singularity containers from their location in `/cbica/projects
 
 ## Utilities
 - Copying over dicoms from Rico (computer at SC3T), detecting which have changed in the last four days
+- Copying over dicoms from Flywheel; to do this you need the Flywheel Command-line Interface (CLI) in your `$PATH`. Run the line below while logged in to your user account on CUBIC (this is already set up for the `cbpdmaindata` project user):
+	```
+	echo "export PATH=\$PATH:/cbica/projects/cbpd_main_data/tools/flywheel/linux_amd64" >> ~/.bashrc
+	```
 - Backing up dicoms to the hard drive (plug in drive, put in IDs, and run the loop)
 - Removing extra TRs for sleeping participants
 - Fixing error about `Conflicting study identifiers found` (see [here](https://github.com/mackeylab/bids_ppc_scripts/tree/master/utilities) for re-registered participants)
