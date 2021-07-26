@@ -28,9 +28,13 @@ if [ ! -e ${output_dir} ]; then
   break
 fi
 
-
+if [ ! -z $CBICA_TMPDIR ] ; then
+  tmpdir=$CBICA_TMPDIR
+else
+	tmpdir=/tmp
+fi
 unset PYTHONPATH;
-SINGULARITY_TMPDIR=/scratch/cbpdmaindata; export SINGULARITY_TMPDIR #make sure it mounts this as /tmp inside the container
+SINGULARITY_TMPDIR=$tmpdir; export SINGULARITY_TMPDIR #make sure it mounts this as /tmp inside the container
 singularity run --cleanenv -B ${SINGULARITY_TMPDIR}:/tmp ${tools_dir}/mriqc-0.15.1.simg \
 ${BIDS_folder}/ ${output_dir} \
 group \

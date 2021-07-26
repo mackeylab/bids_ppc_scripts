@@ -78,4 +78,8 @@ python ${SCRIPTS_DIR}/assign_fieldmaps/assign_fieldmaps_to_IntendedFor_field.py 
 
 echo Finished assigning Intended For field for ${sub} session ${ses}
 
+echo ~~~~~~~~~~~~~
+echo ~~~~ All done! ~~~~~~
+echo ~~~~~~~~~~~~~
+
 echo Now check whether you need to remove some TRs for sleeping, or whether we should add some scans to the .bidsignore file.

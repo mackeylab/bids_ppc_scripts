@@ -15,7 +15,7 @@ set -euo pipefail
 if [ $# -eq 0 ]; then
 echo "USAGE: qsub new_subj_second.sh <sub_id> <full_path_to_BIDS_input_dir> <ses> <run of T1 for Freesurfer>
 
-Example: new_subj_second.sh CBPDxxx /cbica/projects/cbpd_main_data/my_bids_dir 01 run-02
+Example: new_subj_second.sh CBPDxxxx /cbica/projects/cbpd_main_data/my_bids_dir 01 run-02
 This runs MRIQC on this subject, and adds their quality metrics to the MRIQC group output.
 Then, it runs Freesurfer using the second MPRAGE of CBPDxxxx's first session,
 including hippocampal subfields. Finally, it start fMRIprep running,
@@ -94,14 +94,19 @@ if grep -q RUNTIME_HOURS ${SUBJECTS_DIR}/sub-${sub}/scripts/recon-all.done; then
 #   echo 'Error, Freesurfer surfaces are in /BPD/surfaces/ but not in the BIDS directory you specified' for ${sub} session ${ses}
 #   echo 'Please move them and rename them to begin with sub-'
 #   break
+elif [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-hbcd_${T1}_T1w.nii.gz ]; then
+	freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-hbcd_${T1}_T1w.nii.gz
+	echo 'Running Freesurfer with hipp subfields for HBCD T1 for' ${sub} session ${ses} on ${freesurfer_input}
+	#recon-all -all -subjid sub-${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
 else
 	freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_${T1}_T1w.nii.gz
 	echo 'Running Freesurfer with hipp subfields for' ${sub} session ${ses} on ${freesurfer_input}
-	recon-all -all -subjid sub-${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
+	#recon-all -all -subjid sub-${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
 fi
 
 echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}
 
+#LEGACY CONVERSION OF COMPRESSED SENSING MPRAGE
 echo ~~~~~~~~~~~~~
 echo ~~~~ Freesurfer on experimental T1s all timepoints ~~~~~~
 echo ~~~~~~~~~~~~~
@@ -148,8 +153,15 @@ export SUBJECTS_DIR=${BIDS_dir}/derivatives/freesurfer
 echo Running fMRIprep for ${sub} session ${ses}
 if [ -e ${BIDS_dir}/derivatives/fmriprep_t${ses:1}/fmriprep/sub-${sub}.html ]; then
 	echo 'fMRIprep is already run for sub' ${sub}
+elif [ -e ${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_acq-hbcd_${T1}_T1w.nii.gz ]; then
+	echo 'Passing the HBCD T1' ${T1} 'to fMRIprep BIDS filter file'
+	cp ${BIDS_dir}/derivatives/fmriprep/ses-${ses}.json ${BIDS_dir}/derivatives/fmriprep/ses_${ses}_${sub}.json
+	jq -r --arg T1 "${T1:4}" '.t1w.run |= $T1 | .t1w.acquisition = "hbcd"' ${BIDS_dir}/derivatives/fmriprep/ses-${ses}.json > ${BIDS_dir}/derivatives/fmriprep/ses_${ses}_${sub}.json
+	#this uses jq to add the argument for the T1 run and change to HBCD, then update the value for key
+	#run in the bids-filter-file json called ses-01.json
+	bash ${SCRIPTS_DIR}/fmriprep/fmriprep_cmd_v20.2.0.sh ${sub} ${ses} ${BIDS_dir}
 else
-	echo 'Passing the T1' ${T1} 'to fMRIprep BIDS filter file'
+	echo 'Passing the Mackey Lab T1' ${T1} 'to fMRIprep BIDS filter file'
 	cp ${BIDS_dir}/derivatives/fmriprep/ses-${ses}.json ${BIDS_dir}/derivatives/fmriprep/ses_${ses}_${sub}.json
 	jq -r --arg T1 "${T1:4}" '.t1w.run |= $T1' ${BIDS_dir}/derivatives/fmriprep/ses-${ses}.json > ${BIDS_dir}/derivatives/fmriprep/ses_${ses}_${sub}.json
 	#this uses jq to add the argument for the T1 run, then update the value for key

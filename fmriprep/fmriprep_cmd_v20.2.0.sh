@@ -1,11 +1,16 @@
 #!/bin/sh
 #$ -j y
-#$ -l h_vmem=60.1G,s_vmem=60.0G
+#$ -l h_vmem=120.1G,s_vmem=120.0G
 #$ -o /cbica/projects/cbpd_main_data/qsub_output
 
 sub=${1} #CBPD0007
 ses=${2} #01
 BIDS_folder=${3} #/cbica/projects/cbpd_main_data/CBPD/CBPD_bids/
+
+# sub=CBPD0207
+# ses=01
+# BIDS_folder=/cbica/projects/cbpd_main_data/CBPD_bids/
+# run=run-01
 
 tools_dir=/cbica/projects/cbpd_main_data/tools/singularity
 output_dir=${BIDS_folder}/derivatives/
@@ -28,7 +33,6 @@ ${BIDS_folder} ${BIDS_folder}/derivatives/fmriprep_t${ses:1} participant \
 --skull-strip-template MNIPediatricAsym:res-1:cohort-2 \
 --output-spaces MNI152NLin6Asym T1w MNIPediatricAsym:res-1:cohort-2 \
 --ignore sbref \
---verbose \
 --nthreads 8 \
 -w /tmp \
 
