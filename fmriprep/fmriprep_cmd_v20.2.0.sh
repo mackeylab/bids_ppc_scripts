@@ -1,6 +1,6 @@
 #!/bin/sh
 #$ -j y
-#$ -l h_vmem=21.1G,s_vmem=21.0G
+#$ -l h_vmem=60.1G,s_vmem=60.0G
 #$ -o /cbica/projects/cbpd_main_data/qsub_output
 
 sub=${1} #CBPD0007

@@ -21,7 +21,8 @@ Then, it runs Freesurfer using the second MPRAGE of CBPDxxxx's first session,
 including hippocampal subfields. Finally, it start fMRIprep running,
 which should detect precomputed freesurfer inputs.
 
-On CUBIC, run this as the project user (cbpdmaindata).
+On CUBIC, run this as the project user (cbpdmaindata). If fMRIPrep or Freesurfer stop
+before they are finished, you will have to delete unfinished outputs before re-running.
 "
 exit
 fi
@@ -96,7 +97,7 @@ if grep -q RUNTIME_HOURS ${SUBJECTS_DIR}/sub-${sub}/scripts/recon-all.done; then
 else
 	freesurfer_input=${BIDS_dir}/sub-${sub}/ses-${ses}/anat/sub-${sub}_ses-${ses}_${T1}_T1w.nii.gz
 	echo 'Running Freesurfer with hipp subfields for' ${sub} session ${ses} on ${freesurfer_input}
-	#recon-all -all -subjid sub-${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
+	recon-all -all -subjid sub-${sub} -i ${freesurfer_input} -hippocampal-subfields-T1
 fi
 
 echo Finished running Freesurfer with hipp subfields for ${sub} session ${ses}

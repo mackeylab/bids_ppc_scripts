@@ -1,12 +1,12 @@
 #This script is for downloading data from Flywheel (the unknown/Unsorted folder)
 #to the cbpd_main_data project on CUBIC, and starting the dicom-to-nifti conversion.
 
+sudo -u cbpdmaindata bash #log in to the cbpdmaindata project user
+
 CBPD_DATA=/cbica/projects/cbpd_main_data/
 SCRIPTS_DIR=/cbica/projects/cbpd_main_data/code/bids_ppc_scripts
-APIKEY=upenn.flywheel.io:Rr13pKsGKxYkZ7W8Ux #put your API Key from Flywheel here
-SUBJECT_ID=CBPD0212_2
-
-sudo -u cbpdmaindata bash #log in to the cbpdmaindata project user
+APIKEY= #put your API Key from Flywheel here
+SUBJECT_ID=CBPD0199_2
 
 fw login $APIKEY
 
