@@ -1,11 +1,15 @@
 #!/bin/sh
 #$ -j y
-#$ -l h_vmem=120.1G,s_vmem=120.0G
+#$ -l h_vmem=25.1G,s_vmem=25.0G
 #$ -o /cbica/projects/cbpd_main_data/qsub_output
 
 sub=${1} #CBPD0007
 ses=${2} #01
 BIDS_folder=${3} #/cbica/projects/cbpd_main_data/CBPD/CBPD_bids/
+
+# sub=CBPD0077
+# ses=03
+# BIDS_folder=/cbica/projects/cbpd_main_data/CBPD_bids/
 
 tools_dir=/cbica/projects/cbpd_main_data/tools/singularity
 output_dir=${BIDS_folder}/derivatives/

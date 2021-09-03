@@ -106,7 +106,9 @@ def infotodict(seqinfo):
             info[cs_acc42_t1w].append(s.series_id);
         if '-T2_' in s.series_id and s.dim3 == 176:
             info[t2w].append(s.series_id) #keep only the regular T2s that start with -T2 and that aren't vNav setter
-
+        #for BPD data only
+        # if s.dim3 == 176 and 'MPRAGE_' in s.protocol_name:
+        #     info[t1w].append(s.series_id)
 
 
     return info

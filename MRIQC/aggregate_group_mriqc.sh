@@ -1,9 +1,4 @@
 #!/bin/sh
-#$ -cwd
-#$ -V
-#$ -j y
-#$ -l h_vmem=10.1G,s_vmem=10.0G
-#$ -o /cbica/projects/cbpd_main_data/qsub_output
 
 set -euo pipefail
 if [ $# -eq 0 ]; then
@@ -33,6 +28,8 @@ if [ ! -z $CBICA_TMPDIR ] ; then
 else
 	tmpdir=/tmp
 fi
+echo $tmpdir
+
 unset PYTHONPATH;
 SINGULARITY_TMPDIR=$tmpdir; export SINGULARITY_TMPDIR #make sure it mounts this as /tmp inside the container
 singularity run --cleanenv -B ${SINGULARITY_TMPDIR}:/tmp ${tools_dir}/mriqc-0.15.1.simg \
