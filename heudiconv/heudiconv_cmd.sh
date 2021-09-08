@@ -16,7 +16,7 @@ fi
 
 subID=${1}
 #dir=$(cut -d'/' -f 3- <<< ${2}) #take off the /data/ prefix
-dir=${3}
+dir=${2}
 echo $dir
 echo `whoami`
 echo ${SBIA_TMPDIR}

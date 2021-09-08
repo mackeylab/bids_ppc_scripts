@@ -1,7 +1,7 @@
 #!/bin/sh
 #$ -cwd
 #$ -j y
-#$ -l h_vmem=40.1G,s_vmem=40.0G
+#$ -l h_vmem=65.1G,s_vmem=65.0G
 #$ -o /cbica/projects/cbpd_main_data/qsub_output
 
 #Set Python environment if you have one
