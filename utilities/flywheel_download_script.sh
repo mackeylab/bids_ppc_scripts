@@ -21,8 +21,15 @@ tar -xvf ${SUBJECT_ID}.tar
 #move all dicoms that aren't zipped up to the top level folder
 mv unknown/Unsorted/${SUBJECT_ID}/**/*/*dcm .
 
+#NOTE! If for some reason the subject was registered multiple times, there may be multiple folders under
+# unknown/Unsorted/${SUBJECT_ID} that will need to be sorted through. If this is the case,
+# it may be helpful to only mv and unzip the dicoms you want to use from the folders
+# in the folder structure, and delete or hide the others from heudiconv.
+
+# You can also investigate using --grouping all when converting using heudiconv
+
 #this unzips all the dicom folders to the top-level subject folder in /dicoms, though they will still be nested.
-find /cbica/projects/cbpd_main_data/dicoms/${SUBJECT_ID} -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$filename"`" "$filename"; done;
+find /cbica/projects/cbpd_main_data/dicoms/${SUBJECT_ID}/unknown/Unsorted/CBPD0215/CAMRIS^Mackey -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$filename"`" "$filename"; done;
 
 #run the first processing script to convert the dicoms to nifti!
 
