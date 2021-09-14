@@ -3,9 +3,10 @@
 
 If you get an error during dicom conversion about `Conflicting study identifiers found`. This typically occurs if a subject was registered twice, or taken out of the scanner and then put back in. Essentially, each time you register a subject, they get a new `StudyInstanceUID`, which messes up the conversion to nifti.
 
+**NOTE! If for some reason the subject was registered multiple times and has multiple folders on Flywheel**, there may be multiple folders under `dicoms/unknown/Unsorted/${SUBJECT_ID}` that will need to be sorted through before converting to nifti. If this is the case, it may be helpful to `mv` and unzip only the dicoms you want to use from the folders in the folder structure, and hide the others from `heudiconv` conversion, or delete them altogether.
+
 **Edit: With a new heudiconv version, we should be able to fix this with heudiconv(see [here](https://github.com/nipy/heudiconv/pull/359))**.
 For subjects who have different `StudyInstanceUID`, we can run heudiconv using the flag `--grouping all` to assign all dicoms in a subject folder to that subject. UAT has not tested this but should just take a new heudiconv script for that subject.
-
 
 ## Fixing protocol name
 
