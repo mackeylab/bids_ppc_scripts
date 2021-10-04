@@ -29,7 +29,7 @@ mv unknown/Unsorted/${SUBJECT_ID}/**/*/*dcm .
 # You can also investigate using --grouping all when converting using heudiconv
 
 #this unzips all the dicom folders to the top-level subject folder in /dicoms, though they will still be nested.
-find /cbica/projects/cbpd_main_data/dicoms/${SUBJECT_ID}/unknown/Unsorted/CBPD0215/CAMRIS^Mackey -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$filename"`" "$filename"; done;
+find /cbica/projects/cbpd_main_data/dicoms/${SUBJECT_ID} -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$filename"`" "$filename"; done;
 
 #run the first processing script to convert the dicoms to nifti!
 

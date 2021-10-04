@@ -3,7 +3,18 @@
 #You will need to change the username from TooleyU to your CUBIC username
 set -euo pipefail
 
-declare -a subs=(CBPD0162_2)
+declare -a subs=(CBPD0091_3
+CBPD0212_2
+CBPD0209_2
+CBPD0199_2
+CBPD0182_2
+CBPD0142_2
+CBPD0163_2
+CBPD0205_2
+CBPD0141_2
+CBPD0190_2
+CBPD0184_2
+CBPD0160_2)
 
 for i in "${subs[@]}"
 do
