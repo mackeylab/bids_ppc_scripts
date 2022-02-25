@@ -14,7 +14,7 @@ set -euo pipefail
 if [ $# -eq 0 ]; then
 echo "USAGE: qsub new_subj_second.sh <sub_id> <full_path_to_BIDS_input_dir> <ses> <run of T1 for Freesurfer>
 
-Example: new_subj_second.sh CBPDxxxx /cbica/projects/cbpd_main_data/my_bids_dir 01 run-02
+Example: new_subj_second.sh CBPDxxxx /cbica/projects/cbpd_main_data/CBPD_bids 01 run-02
 This runs MRIQC on this subject, and adds their quality metrics to the MRIQC group output.
 Then, it runs Freesurfer using the second MPRAGE of CBPDxxxx's first session,
 including hippocampal subfields. Finally, it start fMRIprep running,
