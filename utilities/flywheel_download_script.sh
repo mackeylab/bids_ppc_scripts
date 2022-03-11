@@ -31,6 +31,11 @@ mv unknown/Unsorted/${SUBJECT_ID}/**/*/*dcm .
 #this unzips all the dicom folders to the top-level subject folder in /dicoms, though they will still be nested.
 find /cbica/projects/cbpd_main_data/dicoms/${SUBJECT_ID} -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$filename"`" "$filename"; done;
 
+# Lourdes' update 23-mar-2022
+# this unzips all the dicom folders to the top-level subject folder in /dicoms, though they will still be nested and
+# now it names the folder according to the name of the sequence (taken from the folder where the dicom is sitting at)
+find /cbica/projects/cbpd_main_data/dicoms/${SUBJECT_ID} -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$(dirname "$filename")"`" "$filename"; done;
+
 #run the first processing script to convert the dicoms to nifti!
 
 qsub ${SCRIPTS_DIR}/new_subj_first.sh ${SUBJECT_ID} /cbica/projects/cbpd_main_data/CBPD_bids
