@@ -25,6 +25,8 @@ ls
 
 # if the contents of the folder are a .tar file and a folder named scitran, use the second move. otherwise use the first.
 # move all dicoms that aren't zipped up to the top level folder
+
+## BE SURE TO CHECK WHICH ONE YOU NEED TO RUN. DO NOT RUN THEM BOTH
 mv unknown/Unsorted/${SUBJECT_ID}/**/*/*dcm .
 mv scitran/unknown/Unsorted/${SUBJECT_ID}/**/*/*dcm .
 
@@ -36,7 +38,7 @@ mv scitran/unknown/Unsorted/${SUBJECT_ID}/**/*/*dcm .
 # You can also investigate using --grouping all when converting using heudiconv
 
 # this unzips all the dicom folders to the top-level subject folder in /dicoms, though they will still be nested.
-find /cbica/projects/cbpd_main_data/dicoms/${SUBJECT_ID} -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$filename"`" "$filename"; done;
+# find /cbica/projects/cbpd_main_data/dicoms/${SUBJECT_ID} -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$filename"`" "$filename"; done;
 
 # Lourdes' update 23-mar-2022
 # this unzips all the dicom folders to the top-level subject folder in /dicoms, though they will still be nested and
@@ -57,3 +59,6 @@ qsub ${SCRIPTS_DIR}/new_subj_first.sh ${SUBJECT_ID} /cbica/projects/cbpd_main_da
 # If dicoms are not being converted properly with heudiconv to nifti format,
 # check the heuristic is up-to-date for any new sequences that have been added
 # for HBCD or otherwise (bids_ppc_scripts/heudiconv/heuristic.py)
+
+# TROUBLESHOOTING
+# If the anat/ folder is missing after the new_subj_first.sh, something went wrong. make sure to delete the dicoms and the subject's CBPD_bids/.heudiconv/$sub/ folders before trying it again.
