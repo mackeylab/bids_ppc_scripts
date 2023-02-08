@@ -24,8 +24,7 @@ tar -xvf ${SUBJECT_ID}.tar
 ls
 #move all dicoms that aren't zipped up to the top level folder
 #CHECK THE PATH. may need to use 'scitran/' version
-#if the contents of the folder are a .tar file and a folder named scitran, use the SECOND move. otherwise use the first.
-
+#if the contents of the folder are a .tar file and a folder named scitran, use the SECOND move (line 29). otherwise use the first.
 #mv unknown/Unsorted/${SUBJECT_ID}/**/*/*dcm .
 mv scitran/unknown/Unsorted/${SUBJECT_ID}/**/*/*dcm .
 
